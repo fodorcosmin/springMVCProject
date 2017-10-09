@@ -8,7 +8,7 @@ import java.util.List;
  * Created by cosmin on 9/25/17.
  */
 //
-@Entity
+@Entity/////ORDER
 public class Menu extends AbstractEntity {
 
     private String dishName;

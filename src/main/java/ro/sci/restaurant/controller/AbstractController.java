@@ -2,9 +2,7 @@ package ro.sci.restaurant.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import ro.sci.restaurant.model.Employee;
-import ro.sci.restaurant.service.EmployeeService;
-import ro.sci.restaurant.service.MenuService;
-import ro.sci.restaurant.service.StockService;
+import ro.sci.restaurant.service.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,12 +15,18 @@ public class AbstractController {
     @Autowired
     //protected EmployeeRepository employeeService;
     protected EmployeeService employeeService;
-    //    @Autowired
-////    protected ReservationService reservationService;
+
+    @Autowired
+    protected ReservationService reservationService;
+
     @Autowired
     protected StockService stockService;
+
     @Autowired
     protected MenuService menuService;
+
+    @Autowired
+    protected CredentialsService credentialService;
 
 
     protected Employee getUserFromSession(HttpSession session) {

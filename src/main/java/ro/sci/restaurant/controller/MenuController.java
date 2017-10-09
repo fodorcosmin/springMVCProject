@@ -19,7 +19,7 @@
 //    @RequestMapping(value = "/addmenuitems", method = RequestMethod.GET)
 //    public String signupForm(Model model) {
 //        //return "addmenuitem";
-//        model.addAttribute("items", "spanac");
+//        model.addAttribute("item", "spanac");
 //        return "addmenuitem";
 //    }
 //

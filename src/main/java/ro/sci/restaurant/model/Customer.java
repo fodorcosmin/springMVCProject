@@ -13,14 +13,14 @@ import javax.validation.constraints.NotNull;
 public class Customer extends AbstractEntity {
 
     private String firstName;
-    private String lastname;
+    private String lastName;
     private String email;
     private String phoneNumber;
 
 
     public Customer(String firstName, String lastname) {
         this.firstName = firstName;
-        this.lastname = lastname;
+        this.lastName = lastname;
 
     }
 
@@ -40,13 +40,13 @@ public class Customer extends AbstractEntity {
 
     @NotNull
     @Column(name = "last_name")
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
     @SuppressWarnings("unused")
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastname) {
+        this.lastName = lastname;
     }
 
 

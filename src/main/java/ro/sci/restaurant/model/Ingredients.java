@@ -1,11 +1,14 @@
 package ro.sci.restaurant.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by cosmin on 9/25/17.
  */
 @Entity
+@Table(name = "stock")
 public class Ingredients extends AbstractEntity {                           //TODO am adaugat abstract entity aici
 
 
@@ -21,6 +24,7 @@ public class Ingredients extends AbstractEntity {                           //TO
         this.quantity = quantity;
     }
 
+    @Column(name = "items")
     public String getItem() {
         return item;
     }
@@ -29,6 +33,7 @@ public class Ingredients extends AbstractEntity {                           //TO
         this.item = item;
     }
 
+    @Column(name = "quantity")
     public int getQuantity() {
         return quantity;
     }
