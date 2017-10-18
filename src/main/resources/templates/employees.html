@@ -6,9 +6,12 @@
 </head>
 <body>
 
-<th:block th:each="employee : ${employeename}">
+<th:block th:each="employee : ${employee}">
     <tr>
-        <td th:text="${employee.firstName}">A Smoke Test'</td>
+        <td th:text="${employee.firstName}">First Name</td>
+        <td th:text="${employee.lastName}">Last Name</td>
+        <!--<td th:text="${employee.gender}">Gender</td>-->
+        <!--<td th:text="${employee.age}">Age</td>-->
     </tr>
 </th:block>
 </body>

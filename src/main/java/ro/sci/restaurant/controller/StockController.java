@@ -16,15 +16,15 @@ import ro.sci.restaurant.model.Ingredients;
 @Controller
 public class StockController extends AbstractController {
 
-    @RequestMapping(value = "/restaurant/addItem", method = RequestMethod.GET)
+    @RequestMapping(value = "/addItem", method = RequestMethod.GET)
     public String addIngredientsForm(Model model) {
         model.addAttribute("itemAdd", new Ingredients());
         return "additem";
     }
 
-    @RequestMapping(value = "/restaurant/addItem", method = RequestMethod.POST)
+    @RequestMapping(value = "/addItem", method = RequestMethod.POST)
     public String addIngredients(@ModelAttribute Ingredients itemAdd) {
-
+        /*
         for (Ingredients ingr : stockService.getAll()) {
             if (ingr.getItem().equals(itemAdd.getItem())) {
                 ingr.setQuantity(ingr.getQuantity() + itemAdd.getQuantity());
@@ -32,19 +32,21 @@ public class StockController extends AbstractController {
                 stockService.add(itemAdd);
             }
         }
+        */
+        stockService.add(itemAdd);
         return "additem";
     }
 
     // TODO TO BE REVIEWED
-    @RequestMapping(value = "/restaurant/removeItem", method = RequestMethod.GET)
+    @RequestMapping(value = "/removeItem", method = RequestMethod.GET)
     public String removeIngredientsForm(Model model) {
         model.addAttribute("itemRemove", new Ingredients());
-        return "additem";
+        return "removeitem";
     }
 
-    @RequestMapping(value = "/restaurant/removeItem", method = RequestMethod.POST)
+    @RequestMapping(value = "/removeItem", method = RequestMethod.POST)
     public String removeIngredients(@ModelAttribute Ingredients itemRemove) {
-
+        /*
         for (Ingredients ing : stockService.getAll()) //TODO
         {
             if (ing.getItem().equals(itemRemove.getItem())) {
@@ -54,7 +56,9 @@ public class StockController extends AbstractController {
                 }
             }
         }
-        return "additem"; //TODO TO  BE REVIEWED
+        */
+        stockService.remove(itemRemove);
+        return "removeitem"; //TODO TO  BE REVIEWED
     }
 
     @RequestMapping(value = "/restaurant/getAllItems", method = RequestMethod.GET)

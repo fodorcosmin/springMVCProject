@@ -28,7 +28,7 @@ public class CredentialsService {
     }
 
     public void add(Credentials credential) {
-
+        credentialRepository.save(credential);
     }
 
     public Credentials getByUid(int uid) {

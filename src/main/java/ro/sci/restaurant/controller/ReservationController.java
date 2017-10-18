@@ -17,14 +17,14 @@ import java.util.Date;
 @Controller
 public class ReservationController extends AbstractController {
 
-    @RequestMapping(value = "/restaurant/makeReservation", method = RequestMethod.GET)
+    @RequestMapping(value = "/addreservation", method = RequestMethod.GET)
     public String makeReservationForm(Model model) {
         model.addAttribute("customer", new Customer());
         model.addAttribute("date", new Date());
         return "addreservation";
     }
 
-    @RequestMapping(value = "/restaurant/makereservations", method = RequestMethod.POST)
+    @RequestMapping(value = "/addreservation", method = RequestMethod.POST)
     public String makeReservation(@ModelAttribute Customer customer, @ModelAttribute Date date) {
         for (Customer cust : reservationService.getAll()) {
             if (cust.getUid() == customer.getUid()) {

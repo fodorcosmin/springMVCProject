@@ -30,27 +30,38 @@ public class StockService {
         return ingredient;
     }
 
-//    public Employee findByUid(int uid){
-//    };
-
-    public List<Ingredients> getByRole() {
-        return null;
-    }
-
-//    public Employee getByUsername(String username) {
-//        return employeeRepository.findOne(username);
-//    }
-
     public void update(Ingredients ingredient) {
-
 
         stockRepository.save(ingredient);
     }
 
     public void add(Ingredients ingredient) {
-        stockRepository.save(ingredient);
+        if (stockRepository.findAllByItem(ingredient.getItem()).isEmpty()) {
+            stockRepository.save(ingredient);
+        } else {
+            for (Ingredients ingr : stockRepository.findAll()) {
+                if (ingr.getItem().equals(ingredient.getItem())) {
+                    ingr.setQuantity(ingr.getQuantity() + ingredient.getQuantity());
+                    stockRepository.findByUid(ingr.getUid()).setQuantity(ingr.getQuantity() - ingredient.getQuantity());
+                    break;
+                }
+            }
+        }
     }
 
+    public void remove(Ingredients ingredient) {
+        for (Ingredients ingr : stockRepository.findAll()) //TODO
+        {
+            if (ingr.getItem().equals(ingredient.getItem())) {
+                ingr.setQuantity(ingr.getQuantity() - ingredient.getQuantity());
+                stockRepository.findByUid(ingr.getUid()).setQuantity(ingr.getQuantity() - ingredient.getQuantity());
+                if (ingr.getQuantity() <= 0) {
+                    stockRepository.delete(ingr.getUid()); //todo
+                }
+                break;
+            }
+        }
+    }
     public void delete(int id) {
         stockRepository.delete(id);
     }

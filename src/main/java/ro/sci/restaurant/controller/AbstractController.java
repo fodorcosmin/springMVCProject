@@ -1,7 +1,7 @@
 package ro.sci.restaurant.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ro.sci.restaurant.model.Employee;
+import ro.sci.restaurant.model.Credentials;
 import ro.sci.restaurant.service.*;
 
 import javax.servlet.http.HttpSession;
@@ -29,16 +29,16 @@ public class AbstractController {
     protected CredentialsService credentialService;
 
 
-    protected Employee getUserFromSession(HttpSession session) {
+    protected Credentials getUserFromSession(HttpSession session) {
 
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         //return userId == null ? null : employeeDao.findByUid(userId);///////////////////////////////
-        return userId == null ? null : employeeService.getByUid(userId);
+        return userId == null ? null : credentialService.getByUid(userId);
     }
 
-    protected void setUserInSession(HttpSession session, Employee user) {
+    protected void setUserInSession(HttpSession session, Credentials user) {
         //session.setAttribute(userSessionKey, user.getUid());//////////////////////////////////////////
-        session.setAttribute(userSessionKey, user.getId());
+        session.setAttribute(userSessionKey, user.getUid());
     }
 
 }

@@ -1,26 +1,16 @@
-package employeeadm;
+package ro.sci.restaurant.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import ro.sci.restaurant.config.AuthenticationInterceptor;
 
 /**
- * Created by cosmin on 9/25/17.
+ * Created by cosmin on 10/16/17.
  */
-
-
 @Configuration
-public class WebAppConfig extends WebMvcConfigurerAdapter {
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-    /*
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
-    */
-    // Create managed bean to allow autowiring
     @Bean
     public AuthenticationInterceptor authenticationInterceptor() {
         return new AuthenticationInterceptor();
@@ -31,4 +21,3 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(authenticationInterceptor());
     }
 }
-

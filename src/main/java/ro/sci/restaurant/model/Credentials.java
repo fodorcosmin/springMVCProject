@@ -1,13 +1,12 @@
 package ro.sci.restaurant.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "credentials")
-public class Credentials extends AbstractEntity {
+public class Credentials { //extends AbstractEntity {
 
+    private Integer uid;
     private String username;
     private String password;
     private String role;
@@ -15,6 +14,16 @@ public class Credentials extends AbstractEntity {
     public Credentials() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "uid")
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
 
     @Column(name = "username")
     public String getUsername() {
@@ -34,7 +43,7 @@ public class Credentials extends AbstractEntity {
         this.password = password;
     }
 
-    @Column(name = "employee_role")
+    @Column(name = "role")
     public String getRole() {
         return role;
     }

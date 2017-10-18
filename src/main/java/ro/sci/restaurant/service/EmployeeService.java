@@ -23,10 +23,17 @@ public class EmployeeService {
     }
 
     public List<Employee> getAll() {
+//        List<Employee> employees= new ArrayList<>();
+//        employeeRepository.findAll().forEach(employees::add);
+//        return employees;
         return employeeRepository.findAll();
     }
 
     public void add(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    public void update(Employee employee) {
         employeeRepository.save(employee);
     }
 
