@@ -15,6 +15,7 @@ public class EmployeeController extends AbstractController {
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
+    /////////////////////////////////////////
     @RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET)
     public String currentUserForm(Model model) {
         //model.addAttribute("credentials", new Credentials());
@@ -40,6 +41,7 @@ public class EmployeeController extends AbstractController {
         return "allcredentials";
     }
 
+    /////////////////////////////////////////
     @RequestMapping(value = "/addEmployee", method = RequestMethod.GET)
     public String employeeForm(Model model) {
         model.addAttribute("employee", new Employee());

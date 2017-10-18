@@ -20,11 +20,6 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-
-//    public Customer findByUid(int id) {
-//        return reservationRepository.findByUid(id); //TODO PROBLEMS WITH RESERVATION REPO
-//    }
-
     public List<Customer> getAll() {
         List<Customer> customer = new ArrayList<>();
         reservationRepository.findAll()
@@ -32,33 +27,31 @@ public class ReservationService {
         return customer;
     }
 
-    public List<Customer> findByName(String name) {
-        List<Customer> customer = new ArrayList<>();
-
-        return customer;
-    }
-
-//    public Employee findByUid(int uid){
-//    };
-
-    //public List<Customer> getByRole() {
-    //return null;
-    //}
-
-//    public Employee getByUsername(String username) {
-//        return employeeRepository.findOne(username);
-//    }
-
     public void update(Customer employee) {
-
-
         reservationRepository.save(employee);
     }
 
     public void add(Customer customer) {
-        reservationRepository.save(customer);
+        boolean customerExists = false;
+        for (Customer cust : reservationRepository.findAll()) {
+            if (cust.getPhoneNumber().equals(customer.getPhoneNumber())) {
+                customerExists = true;
+                break;
+            }
+        }
+        if (customerExists == false) {
+            reservationRepository.save(customer);
+        }
     }
 
+    public void remove(Customer customer) {
+        for (Customer cust : reservationRepository.findAll()) {
+            if (cust.getPhoneNumber().equals(customer.getPhoneNumber())) {
+                reservationRepository.delete(cust.getUid());
+                break;
+            }
+        }
+    }
     public void delete(int id) {
         reservationRepository.delete(id);
     }

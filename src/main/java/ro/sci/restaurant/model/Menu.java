@@ -1,8 +1,6 @@
 package ro.sci.restaurant.model;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import java.util.List;
 
 /**
  * Created by cosmin on 9/25/17.
@@ -13,7 +11,7 @@ public class Menu extends AbstractEntity {
 
     private String dishName;
     private int dishPrice;
-    private List<Ingredients> ingredients;
+    //private List<Ingredients> ingredients;
     //private Ingredients ingredients;
     //private Map<Item,Integer> ingredientQuantity = new HashMap<>();
 
@@ -48,6 +46,7 @@ public class Menu extends AbstractEntity {
         this.dishPrice = dishPrice;
     }
 
+    /*
     @ElementCollection
     public List<Ingredients> getIngredients() {
         return ingredients;
@@ -56,4 +55,5 @@ public class Menu extends AbstractEntity {
     public void setIngredients(List<Ingredients> ingredients) {
         this.ingredients = ingredients;
     }
+    */
 }

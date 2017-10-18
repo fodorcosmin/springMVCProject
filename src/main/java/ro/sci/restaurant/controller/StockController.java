@@ -24,15 +24,6 @@ public class StockController extends AbstractController {
 
     @RequestMapping(value = "/addItem", method = RequestMethod.POST)
     public String addIngredients(@ModelAttribute Ingredients itemAdd) {
-        /*
-        for (Ingredients ingr : stockService.getAll()) {
-            if (ingr.getItem().equals(itemAdd.getItem())) {
-                ingr.setQuantity(ingr.getQuantity() + itemAdd.getQuantity());
-            } else {
-                stockService.add(itemAdd);
-            }
-        }
-        */
         stockService.add(itemAdd);
         return "additem";
     }
@@ -46,17 +37,6 @@ public class StockController extends AbstractController {
 
     @RequestMapping(value = "/removeItem", method = RequestMethod.POST)
     public String removeIngredients(@ModelAttribute Ingredients itemRemove) {
-        /*
-        for (Ingredients ing : stockService.getAll()) //TODO
-        {
-            if (ing.getItem().equals(itemRemove.getItem())) {
-                ing.setQuantity(ing.getQuantity() - itemRemove.getQuantity());
-                if (ing.getQuantity() <= 0) {
-                    stockService.delete(ing.getUid()); //todo
-                }
-            }
-        }
-        */
         stockService.remove(itemRemove);
         return "removeitem"; //TODO TO  BE REVIEWED
     }

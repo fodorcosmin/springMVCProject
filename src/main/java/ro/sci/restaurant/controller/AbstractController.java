@@ -13,7 +13,6 @@ public class AbstractController {
 
     public static final String userSessionKey = "user_id";
     @Autowired
-    //protected EmployeeRepository employeeService;
     protected EmployeeService employeeService;
 
     @Autowired
@@ -32,12 +31,10 @@ public class AbstractController {
     protected Credentials getUserFromSession(HttpSession session) {
 
         Integer userId = (Integer) session.getAttribute(userSessionKey);
-        //return userId == null ? null : employeeDao.findByUid(userId);///////////////////////////////
         return userId == null ? null : credentialService.getByUid(userId);
     }
 
     protected void setUserInSession(HttpSession session, Credentials user) {
-        //session.setAttribute(userSessionKey, user.getUid());//////////////////////////////////////////
         session.setAttribute(userSessionKey, user.getUid());
     }
 

@@ -20,10 +20,6 @@ public class MenuService {
         return menuRepository.findByUid(id);
     }
 
-    // public Menu findByName(String name)
-    // {
-    //   return menuRepository.findByName(name);
-    // }
     public List<Menu> getAll() {
         List<Menu> menu = new ArrayList<>();
         menuRepository.findAll()
@@ -31,28 +27,28 @@ public class MenuService {
         return menu;
     }
 
-//    public Employee findByUid(int uid){
-//    };
-
-    public List<Menu> getByRole() {
-        return null;
-    }
-
-//    public Employee getByUsername(String username) {
-//        return employeeRepository.findOne(username);
-//    }
-
     public void update(Menu menu) {
-
-
         menuRepository.save(menu);
     }
 
-    public void add(Menu menu) {
-        menuRepository.save(menu);
+    public void add(Menu menuItem) {
+        boolean menuExists = false;
+        for (Menu menu : menuRepository.findAll()) {
+            if (menu.getDishName().equals(menuItem.getDishName())) {
+                menuExists = true;
+                break;
+            }
+        }
+        if (menuExists == false) {
+            menuRepository.save(menuItem);
+        }
     }
 
-    public void delete(int id) {
-        menuRepository.delete(id);
+    public void remove(Menu menuItem) {
+        for (Menu menu : menuRepository.findAll()) {
+            if (menu.getDishName().equals(menuItem.getDishName())) {
+                menuRepository.delete(menu.getUid());
+            }
+        }
     }
 }
