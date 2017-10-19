@@ -68,7 +68,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mav) throws IOException {
-        if (mav.getViewName().equals("usertest")) {
+        if (mav.getViewName().equals("home")) {
             mav.addObject("user", this.credentialsService.getByUid((Integer) request.getSession().getAttribute(AbstractController.userSessionKey)));
         }
 
