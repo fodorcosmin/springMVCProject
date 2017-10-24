@@ -19,7 +19,7 @@ public class EmployeeService {
     private EmployeeRepository employeeRepository;
 
     public Employee getByUid(int uid) {
-        return employeeRepository.findEmployeeById(uid);
+        return employeeRepository.findEmployeeByUid(uid);
     }
 
     public List<Employee> getAll() {
@@ -39,6 +39,10 @@ public class EmployeeService {
 
     public void remove(Employee employee) {
         employeeRepository.delete(employee);
+    }
+
+    public void removeByEmail(String email) {
+        employeeRepository.deleteByEmail(email);
     }
 
 }

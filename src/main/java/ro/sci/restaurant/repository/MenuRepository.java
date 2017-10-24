@@ -21,5 +21,5 @@ public interface MenuRepository extends CrudRepository<Menu, Integer> {
     Menu findAllByDishName(String dishName);
     //Menu findAllByIngredients(Item item); //TODO IT WORKS ?
 
-    //TODO
+    Menu deleteByDishName(String name);
 }

@@ -1,13 +1,18 @@
 package ro.sci.restaurant.controller;
 
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ro.sci.restaurant.model.Customer;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -16,6 +21,12 @@ import java.util.Date;
 @Controller
 public class ReservationController extends AbstractController {
 
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(true);
+        webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
     @RequestMapping(value = "/addreservation", method = RequestMethod.GET)
     public String makeReservationForm(Model model) {
         model.addAttribute("customer", new Customer());
@@ -24,7 +35,11 @@ public class ReservationController extends AbstractController {
     }
 
     @RequestMapping(value = "/addreservation", method = RequestMethod.POST)
-    public String makeReservation(@ModelAttribute Customer customer, @ModelAttribute Date date) {
+    public String makeReservation(@ModelAttribute Customer customer, BindingResult result, @ModelAttribute Date reservationDate) {
+
+        if (result.hasErrors()) {
+            System.out.println("DATE/TIME/ERROR");
+        }
         reservationService.add(customer);
         return "addreservation";
     }

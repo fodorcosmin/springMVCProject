@@ -30,15 +30,12 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         //restricted URLs
         List<String> authPages = Arrays.asList("/customerlookup", "/createcustomer", "/menu", "/addmenuitem", "/customerinformation", "/updatemenuitem", "/allcredentials",
                 "/addItem", "/removeItem", "/getAllItems", "/addEmployee", "/updateEmployee", "/delEmployee", "/getAll");
-        List<String> stockPages = Arrays.asList("/addItem", "/removeItem", "/getAllItems");
-        List<String> adminPages = Arrays.asList("/addEmployee", "/updateEmployee", "/delEmployee", "/getAll");
-        List<String> waiterPages = Arrays.asList("");
+        List<String> stockPages = Arrays.asList("/additem", "/removeitem", "/getallitems", "/logout", "/stockhome", "/logout");
+        List<String> adminPages = Arrays.asList("/adminhome", "/addEmployee", "/updateEmployee", "/delEmployee", "/getAll", "/logout", "/getcre/77", "/getcre/uid", "/addEmployeeCredentials");
+        List<String> waiterPages = Arrays.asList("/waiterhome", "/addmenuitem", "/removemenuitem", "/getallmenus", "/logout");
 
         // Require sign-in for auth pages
-        if (authPages.contains(request.getRequestURI()) && isLoggedIn == false) {
-            response.sendRedirect("/login");
-            return false;
-        }
+
         Credentials user;
         Integer userId = (Integer) request.getSession().getAttribute(AbstractController.userSessionKey);
 
@@ -49,15 +46,21 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                 isLoggedIn = true;
 
                 if (user.getRole().equalsIgnoreCase("stockmanager") && !stockPages.contains(request.getRequestURI())) {
-                    response.sendRedirect("/addEmployee");
+                    response.sendRedirect("/stockhome");
                 }
                 if (user.getRole().equalsIgnoreCase("admin") && !adminPages.contains(request.getRequestURI())) {
-                    response.sendRedirect("/addEmployee");
+                    response.sendRedirect("/adminhome");
                 }
                 if (user.getRole().equalsIgnoreCase("waiter") && !waiterPages.contains(request.getRequestURI())) {
-                    response.sendRedirect("/addreservation");
+                    response.sendRedirect("/waiterhome");
                 }
             }
+            if (authPages.contains(request.getRequestURI()) && isLoggedIn == false) {
+                response.sendRedirect("/login");
+                return false;
+            }
+
+
         }
         return true;
     }
@@ -65,8 +68,16 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mav) throws IOException {
-        if (mav.getViewName().equals("home")) {
+        if (mav.getViewName().equals("stockhome")) {
             mav.addObject("user", this.credentialsService.getByUid((Integer) request.getSession().getAttribute(AbstractController.userSessionKey)));
+        }
+        if (mav.getViewName().equals("adminhome")) {
+            mav.addObject("user", this.credentialsService.getByUid((Integer) request.getSession().getAttribute(AbstractController.userSessionKey)));
+        }
+        if (mav.getViewName().equals("waiterhome")) {
+            mav.addObject("user", this.credentialsService.getByUid((Integer) request.getSession().getAttribute(AbstractController.userSessionKey)));
+        } else {
+            System.out.println("asd");
         }
 
     }

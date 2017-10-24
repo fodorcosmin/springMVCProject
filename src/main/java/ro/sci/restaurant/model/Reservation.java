@@ -1,9 +1,8 @@
 package ro.sci.restaurant.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -13,6 +12,7 @@ import java.util.Date;
 @Table(name = "reservations")
 public class Reservation extends AbstractEntity {
 
+    private final Integer capacity = 30;
     private Customer customer;
     private Date reservationDate;
 //    private List<Table> tables;
@@ -21,10 +21,7 @@ public class Reservation extends AbstractEntity {
     public Reservation() {
     }
 
-    public Reservation(Customer customer, Date reservationDate) {
-        this.customer = customer;
-        this.reservationDate = reservationDate;
-    }
+
 
     @Transient
     public Customer getCustomer() {
@@ -36,6 +33,8 @@ public class Reservation extends AbstractEntity {
     }
 
     @Column(name = "reservation_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     public Date getReservationDate() {
         return reservationDate;
     }
@@ -53,4 +52,9 @@ public class Reservation extends AbstractEntity {
 //    public void setTables(List<Table> tables) {
 //        this.tables = tables;
 //    }
+
+
+    public Integer getCapacity() {
+        return capacity;
+    }
 }

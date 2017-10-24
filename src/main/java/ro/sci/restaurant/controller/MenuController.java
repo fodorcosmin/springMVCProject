@@ -14,34 +14,34 @@ import ro.sci.restaurant.model.Menu;
 @Controller
 public class MenuController extends AbstractController {
 
-    @RequestMapping(value = "/addmenuitems", method = RequestMethod.GET)
+    @RequestMapping(value = "/addmenuitem", method = RequestMethod.GET)
     public String addMenuForm(Model model) {
 
-        model.addAttribute("menuItem", new Menu());
+        model.addAttribute("menu", new Menu());
         return "addmenuitem";
     }
 
-    @RequestMapping(value = "/addmenuitems", method = RequestMethod.POST)
-    public String addMenu(@ModelAttribute Menu menuItem) {
-        menuService.add(menuItem);
+    @RequestMapping(value = "/addmenuitem", method = RequestMethod.POST)
+    public String addMenu(@ModelAttribute Menu menu) {
+        menuService.add(menu);
         return "addmenuitem";
     }
 
-    @RequestMapping(value = "/removemenuitems", method = RequestMethod.GET)
+    @RequestMapping(value = "/removemenuitem", method = RequestMethod.GET)
     public String removeMenuForm(Model model) {
-        model.addAttribute("menuItem", new Menu());
+        model.addAttribute("menu", new Menu());
         return "removemenuitem";
     }
 
-    @RequestMapping(value = "/removemenuitems", method = RequestMethod.POST)
-    public String removeMenu(@ModelAttribute Menu menuItem) {
-        menuService.remove(menuItem);
+    @RequestMapping(value = "/removemenuitem", method = RequestMethod.POST)
+    public String removeMenu(@ModelAttribute Menu menu) {
+        menuService.removeByDishName(menu.getDishName());
         return "removemenuitem";
     }
 
-    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    @RequestMapping(value = "/getallmenus", method = RequestMethod.GET)
     public String menu(Model model) {
-        model.addAttribute("menuitems", menuService.getAll());
-        return "success";
+        model.addAttribute("menu", menuService.getAll());
+        return "getallmenus";
     }
 }

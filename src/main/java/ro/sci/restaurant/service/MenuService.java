@@ -49,6 +49,12 @@ public class MenuService {
             if (menu.getDishName().equals(menuItem.getDishName())) {
                 menuRepository.delete(menu.getUid());
             }
+
         }
     }
+
+    public void removeByDishName(String dishName) {
+        menuRepository.deleteByDishName(dishName);
+    }
+
 }

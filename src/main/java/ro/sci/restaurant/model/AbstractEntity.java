@@ -1,9 +1,6 @@
 package ro.sci.restaurant.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -16,7 +13,7 @@ public abstract class AbstractEntity {
     private int uid;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @NotNull
     @Column
     public int getUid() {

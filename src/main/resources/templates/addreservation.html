@@ -1,17 +1,61 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
 </head>
 <body>
-<form th:action="@{/makereservation}" method="post">
-    <input type="text" th:value="${customer.firstName}" name="name"/>
-    <input type="text" th:value="${customer.lastName}" name="lastname"/>
-    <input type="text" th:value="${customer.email}" name="email"/>
-    <input type="number" th:value="${customer.phoneNumber}" name="phone"/>
-    <input type="date" th:value="${date}" name="date"/>
-    <button type="submit">Add</button>
-</form>
+
+<div class="bootstrap-iso">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+
+                <!-- Form code begins -->
+                <form method="post" th:action="@{/addreservation}">
+                    <div class="form-group"> <!-- Date input -->
+                        <label class="control-label" th:for="firstname">First Name</label>
+                        <input class="form-control" id="firstName" name="firstName" th:value="@{customer.firstName}"
+                               placeholder="Popescu" type="text"/>
+                    </div>
+
+                    <div class="form-group"> <!-- Date input -->
+                        <label class="control-label" th:for="lastName">Last Name</label>
+                        <input class="form-control" id="lastName" name="lastName" th:value="@{customer.lastName}"
+                               placeholder="Vasilica" type="text"/>
+                    </div>
+
+                    <div class="form-group"> <!-- Date input -->
+                        <label class="control-label" th:for="phoneNumber">Phone Number</label>
+                        <input class="form-control" id="phoneNumber" name="phoneNumber"
+                               th:value="@{customer.phoneNumber}" placeholder="07xx..." type="text"/>
+                    </div>
+
+                    <div class="form-group"> <!-- Date input -->
+                        <label class="control-label" th:for="reservationDate">Date</label>
+                        <input class="form-control" id="reservationDate" name="reservationDate"
+                               th:value="@{date.reservationDate}" placeholder="yyyy-MM-dd" type="date"/>
+                    </div>
+
+                    <div class="form-group"> <!-- Submit button -->
+                        <button class="btn btn-primary " name="submit" type="submit">Submit</button>
+                    </div>
+                </form>
+                <!-- Form code ends -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

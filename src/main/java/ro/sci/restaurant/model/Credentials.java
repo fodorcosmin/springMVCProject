@@ -4,26 +4,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "credentials")
-public class Credentials { //extends AbstractEntity {
+public class Credentials extends AbstractEntity {
 
-    private Integer uid;
+
     private String username;
     private String password;
     private String role;
-
+    private Employee employee;
     public Credentials() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "uid")
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
 
     @Column(name = "username")
     public String getUsername() {
@@ -50,5 +40,15 @@ public class Credentials { //extends AbstractEntity {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "uid")
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

@@ -15,7 +15,7 @@ public class LoginController extends AbstractController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginForm(Model model) {
-        return "loginTest";
+        return "loginForm";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -32,13 +32,13 @@ public class LoginController extends AbstractController {
             HttpSession thisSession = request.getSession(true);
             this.setUserInSession(thisSession, u);
         }
-        return "home";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "redirect:/";
+        return "home";
     }
 }
 
