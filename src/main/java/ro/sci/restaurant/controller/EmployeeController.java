@@ -15,12 +15,19 @@ public class EmployeeController extends AbstractController {
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
-    /////////////////////////////////////////
-    @RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET)
-    public String currentUserForm(Model model) {
+    @RequestMapping(value = "/adminhome", method = RequestMethod.GET)
+    public String adminPage(Model model) {
         //model.addAttribute("credentials", new Credentials());
-        return "usertest";
+        return "adminhome";
     }
+
+    @RequestMapping(value = "/waiterhome", method = RequestMethod.GET)
+    public String waiterPage(Model model) {
+        //model.addAttribute("credentials", new Credentials());
+        return "waiterhome";
+
+    }
+
 
     @RequestMapping(value = "/addEmployeeCredentials", method = RequestMethod.GET)
     public String credentialForm(Model model) {
@@ -60,10 +67,16 @@ public class EmployeeController extends AbstractController {
         return "success"; //TODO DO WE NEED THIS ?
     }
 
+    @RequestMapping(value = "/delEmployee", method = RequestMethod.GET)
+    public String removeEmployee(Model model) {
+        model.addAttribute("employee", new Employee());
+        return "delEmployee";
+    }
+
     @RequestMapping(value = "/delEmployee", method = RequestMethod.POST)
     public String remEmployee(@ModelAttribute Employee employee) {
-        employeeService.remove(employee);
-        return "success";
+        employeeService.removeByEmail(employee.getEmail());
+        return "delEmployee";
     }
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)

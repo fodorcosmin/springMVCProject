@@ -32,13 +32,13 @@ public class LoginController extends AbstractController {
             HttpSession thisSession = request.getSession(true);
             this.setUserInSession(thisSession, u);
         }
-        return "home";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "redirect:/";
+        return "home";
     }
 }
 

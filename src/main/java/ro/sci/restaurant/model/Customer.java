@@ -2,6 +2,7 @@ package ro.sci.restaurant.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 ///**
@@ -9,7 +10,7 @@ import javax.validation.constraints.NotNull;
 // */
 
 @Entity
-//@Table(name = "customers")
+@Table(name = "customers")
 public class Customer extends AbstractEntity {
 
     private String firstName;
@@ -18,11 +19,6 @@ public class Customer extends AbstractEntity {
     private String phoneNumber;
 
 
-    public Customer(String firstName, String lastname) {
-        this.firstName = firstName;
-        this.lastName = lastname;
-
-    }
 
     public Customer() {
     }

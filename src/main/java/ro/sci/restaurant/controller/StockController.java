@@ -16,32 +16,37 @@ import ro.sci.restaurant.model.Ingredients;
 @Controller
 public class StockController extends AbstractController {
 
-    @RequestMapping(value = "/addItem", method = RequestMethod.GET)
+    @RequestMapping(value = "/stockhome", method = RequestMethod.GET)
+    public String stockForm(Model model) {
+        return "stockhome";
+    }
+
+    @RequestMapping(value = "/additem", method = RequestMethod.GET)
     public String addIngredientsForm(Model model) {
         model.addAttribute("ingredient", new Ingredients());
         return "additem";
     }
 
-    @RequestMapping(value = "/addItem", method = RequestMethod.POST)
+    @RequestMapping(value = "/additem", method = RequestMethod.POST)
     public String addIngredients(@ModelAttribute Ingredients ingredient) {
         stockService.add(ingredient);
         return "additem";
     }
 
     // TODO TO BE REVIEWED
-    @RequestMapping(value = "/removeItem", method = RequestMethod.GET)
+    @RequestMapping(value = "/removeitem", method = RequestMethod.GET)
     public String removeIngredientsForm(Model model) {
         model.addAttribute("ingredient", new Ingredients());
         return "removeitem";
     }
 
-    @RequestMapping(value = "/removeItem", method = RequestMethod.POST)
+    @RequestMapping(value = "/removeitem", method = RequestMethod.POST)
     public String removeIngredients(@ModelAttribute Ingredients ingredient) {
         stockService.remove(ingredient);
         return "removeitem"; //TODO TO  BE REVIEWED
     }
 
-    @RequestMapping(value = "/restaurant/getAllItems", method = RequestMethod.GET)
+    @RequestMapping(value = "/getallitems", method = RequestMethod.GET)
     public String getStock(Model model) {
         model.addAttribute("items", stockService.getAll());
         return "getstock";

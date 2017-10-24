@@ -1,34 +1,28 @@
 package ro.sci.restaurant.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * Created by cosmin on 9/25/17.
  */
 //
-@Entity/////ORDER
+@Entity
+@Table(name = "menu")
 public class Menu extends AbstractEntity {
 
     private String dishName;
     private int dishPrice;
-    //private List<Ingredients> ingredients;
-    //private Ingredients ingredients;
-    //private Map<Item,Integer> ingredientQuantity = new HashMap<>();
+    private List<Ingredients> ingredients;
+
 
     public Menu() {
     }
 
-    public Menu(String dishName, String dishPrice) {
-        this.dishName = dishName;
-        this.dishPrice = Integer.parseInt(dishPrice);
-    }
 
-//    public Menu(String dishName, int dishPrice, Ingredients ingrediens) {
-//        this.dishName = dishName;
-//        this.dishPrice = dishPrice;
-//        this.ingredients = ingredients;
-//    }
-
+    @NotNull
+    @Column(name = "dish_name")
     public String getDishName() {
         return dishName;
     }
@@ -37,7 +31,8 @@ public class Menu extends AbstractEntity {
         this.dishName = dishName;
     }
 
-
+    @NotNull
+    @Column(name = "dish_price")
     public int getDishPrice() {
         return dishPrice;
     }
@@ -46,8 +41,10 @@ public class Menu extends AbstractEntity {
         this.dishPrice = dishPrice;
     }
 
-    /*
-    @ElementCollection
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "menu_ingredients", joinColumns = @JoinColumn(name = "menu_uid"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_uid"))
     public List<Ingredients> getIngredients() {
         return ingredients;
     }
@@ -55,5 +52,4 @@ public class Menu extends AbstractEntity {
     public void setIngredients(List<Ingredients> ingredients) {
         this.ingredients = ingredients;
     }
-    */
 }

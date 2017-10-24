@@ -13,4 +13,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
     Employee findEmployeeById(int uid);
 
     List<Employee> findAll();
+
+
+    Employee deleteByEmail(String email);
 }
