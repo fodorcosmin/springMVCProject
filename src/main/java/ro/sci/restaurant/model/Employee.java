@@ -8,8 +8,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "employees")
-public class Employee {
-    private Integer id;
+public class Employee extends AbstractEntity{
+    //private Integer uid;
     private String firstName;
     private String lastName;
     private Integer age;
@@ -22,17 +22,17 @@ public class Employee {
     public Employee() {
     }
 
-    @Id
-    @GeneratedValue
-    @Column(name = "employee_id")
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+//    @Id
+//    @GeneratedValue
+//    @Column(name = "uid")
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
+    
     @NotNull
     @Column(name = "first_name")
     public String getFirstName() {

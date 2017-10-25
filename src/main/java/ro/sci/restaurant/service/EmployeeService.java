@@ -19,7 +19,7 @@ public class EmployeeService {
     private EmployeeRepository employeeRepository;
 
     public Employee getByUid(int uid) {
-        return employeeRepository.findEmployeeById(uid);
+        return employeeRepository.findEmployeeByUid(uid);
     }
 
     public List<Employee> getAll() {
@@ -29,8 +29,16 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public void add(Employee employee) {
+    public boolean add(Employee employee) {
+        for(Employee emp : employeeRepository.findAll())
+        {
+            if(emp.getEmail().equals(employee.getEmail()) || emp.getPhoneNumber().equals(employee.getPhoneNumber()))
+            {
+                return false;
+            }
+        }
         employeeRepository.save(employee);
+        return true;
     }
 
     public void update(Employee employee) {

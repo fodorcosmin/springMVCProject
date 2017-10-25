@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 @Transactional
 public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
-    Employee findEmployeeById(int uid);
+    Employee findEmployeeByUid(int uid);
 
     List<Employee> findAll();
 

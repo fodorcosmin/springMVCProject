@@ -27,8 +27,16 @@ public class CredentialsService {
         return credentials;
     }
 
-    public void add(Credentials credential) {
-        credentialRepository.save(credential);
+    public boolean add(Credentials credential) {
+            for(Credentials cre : credentialRepository.findAll())
+            {
+                if(cre.getUsername().equals(credential.getPassword()) || cre.getUsername().equals(credential.getUsername()))
+                {
+                    return false;
+                }
+            }
+            credentialRepository.save(credential);
+            return true;
     }
 
     public Credentials getByUid(int uid) {

@@ -13,11 +13,11 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-//import org.springframework.web.servlet.support.RequestContext;
 
-/**
- * Created by cosmin on 10/16/17.
- */
+
+///**
+// * Created by Andrei on 10/16/17.
+// */
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
@@ -28,13 +28,12 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
         boolean isLoggedIn = false;
         //restricted URLs
-        List<String> authPages = Arrays.asList("/customerlookup", "/createcustomer", "/menu", "/addmenuitem", "/customerinformation", "/updatemenuitem", "/allcredentials",
-                "/addItem", "/removeItem", "/getAllItems", "/addEmployee", "/updateEmployee", "/delEmployee", "/getAll");
-        List<String> stockPages = Arrays.asList("/additem", "/removeitem", "/getallitems", "/logout", "/stockhome", "/logout");
-        List<String> adminPages = Arrays.asList("/adminhome", "/addEmployee", "/updateEmployee", "/delEmployee", "/getAll", "/logout");
+        List<String> authPages = Arrays.asList("/addmenuitem","/additem", "/removeitem", "/getallitems", "/addEmployee", "/removeEmployee", "/getAllEmployees",
+                "/adminhome","/waiterhome","/stockhome","/getallcredentials","/addEmployeeCredentials");
+        List<String> stockPages = Arrays.asList("/additem", "/removeitem", "/getallitems","/stockhome", "/logout");
+        List<String> adminPages = Arrays.asList("/adminhome", "/addEmployee", "/removeEmployee", "/getAllEmployees","/getallcredentials", "/logout","/addEmployeeCredentials");
         List<String> waiterPages = Arrays.asList("/waiterhome", "/addmenuitem", "/removemenuitem", "/getallmenus", "/logout");
 
-        // Require sign-in for auth pages
 
         Credentials user;
         Integer userId = (Integer) request.getSession().getAttribute(AbstractController.userSessionKey);
@@ -68,18 +67,10 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mav) throws IOException {
-        if (mav.getViewName().equals("stockhome")) {
-            mav.addObject("user", this.credentialsService.getByUid((Integer) request.getSession().getAttribute(AbstractController.userSessionKey)));
-        }
-        if (mav.getViewName().equals("adminhome")) {
-            mav.addObject("user", this.credentialsService.getByUid((Integer) request.getSession().getAttribute(AbstractController.userSessionKey)));
-        }
-        if (mav.getViewName().equals("waiterhome")) {
-            mav.addObject("user", this.credentialsService.getByUid((Integer) request.getSession().getAttribute(AbstractController.userSessionKey)));
-        } else {
-            System.out.println("asd");
-        }
 
+        if (mav.getViewName().equals("stockhome") || mav.getViewName().equals("adminhome") || mav.getViewName().equals("waiterhome")) {
+            mav.addObject("user", this.credentialsService.getByUid((Integer) request.getSession().getAttribute(AbstractController.userSessionKey)));
+        }
     }
 
 }

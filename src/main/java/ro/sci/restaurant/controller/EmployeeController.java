@@ -10,79 +10,112 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ro.sci.restaurant.model.Credentials;
 import ro.sci.restaurant.model.Employee;
 
+
+/**
+ * This controller is used to add, remove, and retrieve employee and credentials assigned to said employee
+ * All said operations can only be carried out by an employee with administrator privileges
+ */
 @Controller
 public class EmployeeController extends AbstractController {
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping(value = "/adminhome", method = RequestMethod.GET)
-    public String adminPage(Model model) {
-        //model.addAttribute("credentials", new Credentials());
-        return "adminhome";
-    }
-
-    @RequestMapping(value = "/waiterhome", method = RequestMethod.GET)
-    public String waiterPage(Model model) {
-        //model.addAttribute("credentials", new Credentials());
-        return "waiterhome";
-
-    }
-
-
+    /**
+     * Retrieves the thymeleaf page and assigns a credential object to be initialised in the page
+     * @param model - adds the variable to the thymeleaf through addAttribute
+     * @return
+     */
     @RequestMapping(value = "/addEmployeeCredentials", method = RequestMethod.GET)
     public String credentialForm(Model model) {
         model.addAttribute("credentials", new Credentials());
         return "credentials";
     }
-
+    /**
+     * Inserts the newly created credential object into the repository after it has been initialised
+     * @param credentials - the object initialised from the page with the @ModelAttribute
+     * @return
+     */
     @RequestMapping(value = "/addEmployeeCredentials", method = RequestMethod.POST)
-    public String addCredential(@ModelAttribute Credentials credentials) {
-        credentialService.add(credentials);
-        return "credentials"; //TODO TO BE REVIEWED If binding result is necessary
+    public String addCredential(@ModelAttribute Credentials credentials, Model model) {
+        if(credentialService.add(credentials))
+        {
+            model.addAttribute("empName", "Added employee " + credentials.getUsername());
+            return "credentials";
+        }
+        model.addAttribute("empName", "Employee " + credentials.getUsername() + " already exists");
+        return "addEmployee";
     }
 
-    @RequestMapping(value = "/allcredentials", method = RequestMethod.GET)
-    public String getLoginForm(Model model) {
 
-        model.addAttribute("credential", credentialService.getAll());
-        return "allcredentials";
-    }
-
-    /////////////////////////////////////////
+    /**
+     * Retrieves the thymeleaf page and assigns an employee object to be initialised in the page
+     * @param model - adds the variable to the thymeleaf through addAttribute
+     * @return
+     */
     @RequestMapping(value = "/addEmployee", method = RequestMethod.GET)
     public String employeeForm(Model model) {
         model.addAttribute("employee", new Employee());
         return "addEmployee";
     }
-
+    /**
+     * Inserts the newly initialised employee object into the repository after it has been initialised
+     * @param employee - the object initialised from the page with the @ModelAttribute
+     * @return
+     */
     @RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
-    public String addEmployee(@ModelAttribute Employee employee) {
-        employeeService.add(employee);
-        return "credentials"; //TODO TO BE REVIEWED If binding result is necessary
+    public String addEmployee(@ModelAttribute Employee employee, Model model) {
+        if(employeeService.add(employee))
+        {
+            model.addAttribute("empName", "Added employee " + employee.getFirstName());
+            return "addEmployee"; //TODO TO BE REVIEWED If binding result is necessary
+        }
+        model.addAttribute("empName", "Employee " + employee.getFirstName() + " already exists");
+        return "addEmployee";
     }
 
-    @RequestMapping(value = "/updateEmployee", method = RequestMethod.POST)
-    public String updateEmployee(@ModelAttribute Employee employee) {
-        employeeService.update(employee);
-        return "success"; //TODO DO WE NEED THIS ?
-    }
 
-    @RequestMapping(value = "/delEmployee", method = RequestMethod.GET)
+    /**
+     * Retrieves the thymeleaf page and assigns an employee object to be initialised in the page
+     * @param model - adds the variable to the thymeleaf through addAttribute
+     * @return
+     */
+    @RequestMapping(value = "/removeEmployee", method = RequestMethod.GET)
     public String removeEmployee(Model model) {
         model.addAttribute("employee", new Employee());
         return "delEmployee";
     }
-
-    @RequestMapping(value = "/delEmployee", method = RequestMethod.POST)
+    /**
+     * Use the newly created employee object to compare it to other objects in the employee repository to be removed
+     * @param employee - the object initialised from the page with the @ModelAttribute
+     * @return
+     */
+    @RequestMapping(value = "/removeEmployee", method = RequestMethod.POST)
     public String remEmployee(@ModelAttribute Employee employee) {
         employeeService.removeByEmail(employee.getEmail());
         return "delEmployee";
     }
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+
+    /**
+     * Retrieves all employee objects from the repository and lists them in the form
+     * @param model - used to assign the list returned from the repository and insert the into the employee variable in the form
+     * @return
+     */
+    @RequestMapping(value = "/getAllEmployees", method = RequestMethod.GET)
     public String getAllForm(Model model) {
         model.addAttribute("employee", employeeService.getAll());
         return "employees";
+    }
+    /**
+     * Retrieves all credential objects from the repository and lists them in the form
+     * @param model - used to assign the list returned from the repository and insert the into the credential variable in the form
+     * @return
+     */
+    @RequestMapping(value = "/getallcredentials", method = RequestMethod.GET)
+    public String getLoginForm(Model model) {
+
+        model.addAttribute("credential", credentialService.getAll());
+        return "allcredentials";
     }
 }
 

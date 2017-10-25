@@ -6,12 +6,15 @@ import ro.sci.restaurant.service.*;
 
 import javax.servlet.http.HttpSession;
 
-/**
- * Created by cosmin on 9/25/17.
- */
+
+///**
+// * Created by Andrei on 9/25/17.
+// * Used to autowire services and validate user sessions for authentication and authorisation by id
+// */
 public class AbstractController {
 
     public static final String userSessionKey = "user_id";
+
     @Autowired
     protected EmployeeService employeeService;
 
