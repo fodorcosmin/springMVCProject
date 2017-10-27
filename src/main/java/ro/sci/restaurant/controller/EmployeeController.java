@@ -4,20 +4,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ro.sci.restaurant.model.Credentials;
 import ro.sci.restaurant.model.Employee;
 
 
 /**
+ * Created by Andrei Andrei on 9/25/17.
  * This controller is used to add, remove, and retrieve employee and credentials assigned to said employee
  * All said operations can only be carried out by an employee with administrator privileges
  */
 @Controller
 public class EmployeeController extends AbstractController {
 
+    private String name = "";
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -64,10 +64,11 @@ public class EmployeeController extends AbstractController {
      */
     @RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
     public String addEmployee(@ModelAttribute Employee employee, Model model) {
+        name = employee.getFirstName();
         if(employeeService.add(employee))
         {
-            model.addAttribute("empName", "Added employee " + employee.getFirstName());
-            return "addEmployee"; //TODO TO BE REVIEWED If binding result is necessary
+            model.addAttribute("empName", "Added employee " + name);
+            return "redirect:/addEmployeeCredentials";
         }
         model.addAttribute("empName", "Employee " + employee.getFirstName() + " already exists");
         return "addEmployee";
@@ -117,5 +118,47 @@ public class EmployeeController extends AbstractController {
         model.addAttribute("credential", credentialService.getAll());
         return "allcredentials";
     }
+
+
+    @RequestMapping(value = "/updateEmployee", method = RequestMethod.GET)
+    public String updateEmployeeForm(Model model) {
+        model.addAttribute("idGet", 2);
+        model.addAttribute("employee", new Employee());
+        return "updateEmployee";
+
+    }
+
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = "/updateEmployee", method = RequestMethod.POST)
+    public String updateEmployee(Model model, @ModelAttribute Employee employee, @RequestParam(name = "idGet", required = false) Integer idGet, @RequestParam(value = "action", required = false) String action) {
+        if (action.equals("get")) {
+            model.addAttribute("employee", employeeService.getByUid(idGet));
+        }
+        if (action.equals("save")) {
+            employeeService.update(employee);
+        }
+        return "updateEmployee";
+    }
+
+
+    @RequestMapping(value = "/updateCredentials", method = RequestMethod.GET)
+    public String updateCredentialsForm(Model model, @PathVariable Integer id) {
+        model.addAttribute("idGet", 2);
+        model.addAttribute("credentials", new Credentials());
+        return "updateCredentials";
+    }
+
+    @RequestMapping(value = "/updateCredentials", method = RequestMethod.POST)
+    public String updateCredentials(Model model, @ModelAttribute Credentials credentials, @RequestParam(name = "idGet", required = false) Integer idGet, @RequestParam(value = "action", required = false) String action) {
+        if (action.equals("get")) {
+            model.addAttribute("credentials", employeeService.getByUid(idGet));
+        }
+        if (action.equals("save")) {
+            credentialService.update(credentials);
+        }
+        return "updateCredentials";
+    }
+
+
 }
 

@@ -25,15 +25,15 @@ public class Employee extends AbstractEntity{
 //    @Id
 //    @GeneratedValue
 //    @Column(name = "uid")
-//    public Integer getId() {
-//        return id;
+//    public Integer getUid() {
+//        return uid;
 //    }
 //
-//    public void setId(Integer id) {
-//        this.id = id;
+//    public void setUid(Integer uid) {
+//        this.uid = uid;
 //    }
-    
-    @NotNull
+
+    //@NotNull
     @Column(name = "first_name")
     public String getFirstName() {
         return firstName;
@@ -44,7 +44,7 @@ public class Employee extends AbstractEntity{
         this.firstName = firstName;
     }
 
-    @NotNull
+    //@NotNull
     @Column(name = "last_name")
     public String getLastName() {
         return lastName;
@@ -55,7 +55,7 @@ public class Employee extends AbstractEntity{
     }
 
     //
-    @NotNull
+    //@NotNull
     @Min(18)
     @Column(name = "age")
     public Integer getAge() {
@@ -66,7 +66,7 @@ public class Employee extends AbstractEntity{
         this.age = age;
     }
 
-    @NotNull
+    //@NotNull
     @Column(name = "gender")
     public Character getGender() {
         return gender;
@@ -76,7 +76,7 @@ public class Employee extends AbstractEntity{
         this.gender = gender;
     }
 
-    @NotNull
+    //@NotNull
     @Column(name = "phone_number", unique = true)
     public String getPhoneNumber() {
         return phoneNumber;

@@ -8,18 +8,11 @@ import ro.sci.restaurant.repository.CredentialRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class CredentialsService {
     @Autowired
     private CredentialRepository credentialRepository;
-
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-//    public Credentials getByUid(int uid) {
-//        return credentialRepository.findByUid(uid);
-//    }
 
     public List<Credentials> getAll() {
         List<Credentials> credentials = new ArrayList<>();
@@ -49,6 +42,15 @@ public class CredentialsService {
 
     public Credentials getByUsername(String username) {
         return credentialRepository.findByUsername(username);
+    }
+
+    public void update(Credentials credentials) {
+        Credentials cre = credentialRepository.findOne(credentials.getUid());
+        cre.setPassword(credentials.getPassword());
+        cre.setUsername(credentials.getUsername());
+        cre.setRole(credentials.getRole());
+        cre.setUid(credentials.getUid());
+        credentialRepository.save(cre);
     }
 
 }

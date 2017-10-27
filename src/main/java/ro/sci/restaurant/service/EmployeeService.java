@@ -19,13 +19,10 @@ public class EmployeeService {
     private EmployeeRepository employeeRepository;
 
     public Employee getByUid(int uid) {
-        return employeeRepository.findEmployeeByUid(uid);
+        return employeeRepository.findByUid(uid);
     }
 
     public List<Employee> getAll() {
-//        List<Employee> employees= new ArrayList<>();
-//        employeeRepository.findAll().forEach(employees::add);
-//        return employees;
         return employeeRepository.findAll();
     }
 
@@ -42,6 +39,15 @@ public class EmployeeService {
     }
 
     public void update(Employee employee) {
+        Employee emp = employeeRepository.findOne(employee.getUid());
+        emp.setUid(employee.getUid());
+        emp.setAge(employee.getAge());
+        emp.setFirstName(employee.getFirstName());
+        emp.setLastName(employee.getLastName());
+        emp.setEmail(employee.getEmail());
+        emp.setGender(employee.getGender());
+        emp.setPhoneNumber(employee.getPhoneNumber());
+        emp.setSalary(employee.getSalary());
         employeeRepository.save(employee);
     }
 
