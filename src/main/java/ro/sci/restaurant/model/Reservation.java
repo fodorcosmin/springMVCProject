@@ -1,9 +1,10 @@
 package ro.sci.restaurant.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.util.Date;
 
 /**
@@ -13,7 +14,11 @@ import java.util.Date;
 @Table(name = "reservations")
 public class Reservation extends AbstractEntity {
 
-    private Customer customer;
+    private int availableSeats = 30;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private Integer seats;
     private Date reservationDate;
 //    private List<Table> tables;
 
@@ -21,21 +26,54 @@ public class Reservation extends AbstractEntity {
     public Reservation() {
     }
 
-    public Reservation(Customer customer, Date reservationDate) {
-        this.customer = customer;
-        this.reservationDate = reservationDate;
+
+    @Column(name = "first_name")
+    public String getFirstName() {
+        return firstName;
     }
 
-    @Transient
-    public Customer getCustomer() {
-        return customer;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    @Column(name = "last_name")
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Column(name = "phone_number")
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Column(name = "seats")
+    public Integer getSeats() {
+        return seats;
+    }
+
+    public void setSeats(Integer seats) {
+        this.seats = seats;
+    }
+
+    @Column(name = "available_seats", updatable = true)
+    public int getAvailableSeats() {
+        return availableSeats - getSeats();
+    }
+
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
     }
 
     @Column(name = "reservation_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date getReservationDate() {
         return reservationDate;
     }
@@ -45,12 +83,5 @@ public class Reservation extends AbstractEntity {
         this.reservationDate = reservationDate;
     }
 
-//    @ElementCollection
-//    public List<Table> getTables() {
-//        return tables;
-//    }
-//
-//    public void setTables(List<Table> tables) {
-//        this.tables = tables;
-//    }
+
 }

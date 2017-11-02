@@ -3,12 +3,9 @@ package ro.sci.restaurant.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ro.sci.restaurant.model.Customer;
-
-import java.util.Date;
+import ro.sci.restaurant.model.Reservation;
 
 /**
  * Created by cosmin on 9/23/17.
@@ -18,32 +15,31 @@ public class ReservationController extends AbstractController {
 
     @RequestMapping(value = "/addreservation", method = RequestMethod.GET)
     public String makeReservationForm(Model model) {
-        model.addAttribute("customer", new Customer());
-        model.addAttribute("date", new Date());
+        model.addAttribute("reservation", new Reservation());
         return "addreservation";
     }
 
     @RequestMapping(value = "/addreservation", method = RequestMethod.POST)
-    public String makeReservation(@ModelAttribute Customer customer, @ModelAttribute Date date) {
-        reservationService.add(customer);
+    public String makeReservation(Reservation reservation) {
+        reservationService.add(reservation);
         return "addreservation";
     }
 
     @RequestMapping(value = "/removereservation", method = RequestMethod.GET)
     public String removeReservationForm(Model model) {
-        model.addAttribute("customer", new Customer());
+        model.addAttribute("reservation", new Reservation());
         return "removereservation";
     }
 
     @RequestMapping(value = "/removereservation", method = RequestMethod.POST)
-    public String removeReservation(@ModelAttribute Customer customer) {
-        reservationService.remove(customer);
+    public String removeReservation(Reservation reservation) {
+        reservationService.remove(reservation);
         return "removereservation";
     }
 
     @RequestMapping(value = "/getAllReservations", method = RequestMethod.GET)
-    public String getAllReservations(Model model) {
-        model.addAttribute("customers", reservationService.getAll());
+    public String getAllReservations() {
+        reservationService.getAll();
         return "allReservations";
     }
 

@@ -30,6 +30,9 @@ public class AbstractController {
     @Autowired
     protected CredentialsService credentialService;
 
+    @Autowired
+    protected TaskService taskService;
+
 
     protected Credentials getUserFromSession(HttpSession session) {
 

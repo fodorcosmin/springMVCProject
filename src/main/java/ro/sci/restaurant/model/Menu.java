@@ -42,9 +42,9 @@ public class Menu extends AbstractEntity {
     }
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "menu_ingredients", joinColumns = @JoinColumn(name = "menu_uid"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_uid"))
+    @ManyToMany
+    @JoinTable(name = "menu_ingredients", joinColumns = @JoinColumn(name = "menu_uid", referencedColumnName = "uid"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_uid", referencedColumnName = "uid"))
     public List<Ingredients> getIngredients() {
         return ingredients;
     }

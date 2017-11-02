@@ -22,10 +22,7 @@ public class EmployeeService {
         return employeeRepository.findEmployeeByUid(uid);
     }
 
-    public List<Employee> getAll() {
-//        List<Employee> employees= new ArrayList<>();
-//        employeeRepository.findAll().forEach(employees::add);
-//        return employees;
+    public List getAll() {
         return employeeRepository.findAll();
     }
 

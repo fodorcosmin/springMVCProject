@@ -3,15 +3,212 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--BootStrap Date Picker-->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
 </head>
 <body>
-<form method="post">
-    <input type="text" th:value="${customer.firstName}" name="name"/>
-    <input type="text" th:value="${customer.lastName}" name="lastname"/>
-    <input type="text" th:value="${customer.email}" name="email"/>
-    <input type="number" th:value="${customer.phoneNumber}" name="phone"/>
-    <input type="date" th:value="${date}" name="date"/>
-    <button type="submit">Add</button>
-</form>
+
+<style>
+    @keyframes slidy {
+        0% {
+            left: 0%;
+        }
+        20% {
+            left: 0%;
+        }
+        25% {
+            left: -100%;
+        }
+        45% {
+            left: -100%;
+        }
+        50% {
+            left: -200%;
+        }
+        70% {
+            left: -200%;
+        }
+        75% {
+            left: -300%;
+        }
+        95% {
+            left: -300%;
+        }
+        100% {
+            left: -400%;
+        }
+    }
+
+    .container {
+        position: absolute;
+        width: 50%;
+        z-index: 1;
+        text-align: center;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    div#slider {
+        overflow: hidden;
+        height: 670px;
+    }
+
+    div#slider figure img {
+        width: 20%;
+        float: left;
+    }
+
+    #slider figure {
+        position: relative;
+        width: 500%;
+        margin: 0 auto;
+        left: 0;
+        text-align: left;
+        font-size: 0;
+        animation: 15s slidy infinite;
+    }
+
+    .search-box {
+        text-align: center;
+    }
+
+    .search-destiny {
+        width: 100%;
+    }
+
+    .button-search {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .margin_row {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .btn_search {
+        width: 200px;
+        margin-bottom: 10px;
+        border-radius: 0;
+    }
+
+    .content {
+        border-radius: 5px;
+        background-color: rgba(200, 200, 200, 0.8)
+
+    }
+
+    @media (max-width: 600px) {
+        .btn_search {
+            width: 90%;
+            margin-bottom: 0px;
+            border-bottom-left-radius: 5px !important;
+            border-bottom-right-radius: 5px !important;
+        }
+    }
+
+    @media (max-width: 414px) {
+        .btn_search {
+
+            margin-bottom: 0px;
+            border-bottom-left-radius: 5px !important;
+            border-bottom-right-radius: 5px !important;
+        }
+
+        figure {
+            display: none;
+        }
+
+        .container, .slider, content {
+            width: 100%;
+        }
+    }
+
+</style>
+
+<script>
+    $(document).ready(function () {
+        var date_input = $('input[name="date"]'); //our date input has the name "date"
+        var container = $('.datepicker-iso form').length > 0 ? $('.datepicker-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'yyyy/MM/dd',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    })
+</script>
+
+<div class="slider" id="slider">
+    <div class="container col-lg-12">
+        <div class="content">
+            <div class="search-box">
+                <div class="row margin_row">
+                    <div class="col-xs-12">
+                        <input type="text" class="search-destiny form-control"/>
+                    </div>
+                </div>
+                <form method="post" th:object="${reservation}">
+                    <div class="row margin_row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <label th:for="firstName">First Name</label>
+                                <input type="text" class="form-control" th:field="*{firstName}"/>
+                            </div>
+                            <div class="col-lg-4">
+                                <label th:for="lastName">Last Name</label>
+                                <input type="text" class="form-control" th:field="*{lastName}"/>
+                            </div>
+                            <div class="col-lg-4">
+                                <label th:for="phoneNumber">Phone Number</label>
+                                <input type="text" class="form-control" th:field="*{phoneNumber}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="row margin_row">
+                            <div class="col-lg-2">
+                                <label th:for="seats">Persons</label>
+                                <select id="seats" class="form-control width_select" th:field="*{seats}">
+                                    <option value='1'>1</option>
+                                    <option value='2'>2</option>
+                                    <option value='3'>3</option>
+                                    <option value='4'>4</option>
+                                    <option value='5'>5</option>
+                                </select>
+                            </div>
+
+                            <div class="datepicker-iso">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group" th:field="*{reservationDate}">
+                                                <label class="control-label" for="date">Date</label>
+                                                <input class="form-control" id="date" name="date" type="date"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row button-search">
+                                        <button class="btn btn-lg btn-success">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

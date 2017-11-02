@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<style>
+    .table-sortable tbody tr {
+        cursor: move;
+    }
+
+</style>
+<body>
+<script>
+    $(document).ready(function () {
+        $("#add_row").on("click", function () {
+            // Dynamic Rows Code
+
+            // Get max row id and set new id
+            var newid = 0;
+            $.each($("#tab_logic tr"), function () {
+                if (parseInt($(this).data("id")) > newid) {
+                    newid = parseInt($(this).data("id"));
+                }
+            });
+            newid++;
+
+            var tr = $("<tr></tr>", {
+                id: "addr" + newid,
+                "data-id": newid
+            });
+
+            // loop through each td and create new elements with name of newid
+            $.each($("#tab_logic tbody tr:nth(0) td"), function () {
+                var cur_td = $(this);
+
+                var children = cur_td.children();
+
+                // add new td and element if it has a nane
+                if ($(this).data("name") != undefined) {
+                    var td = $("<td></td>", {
+                        "data-name": $(cur_td).data("name")
+                    });
+
+                    var c = $(cur_td).find($(children[0]).prop('tagName')).clone().val("");
+                    c.attr("name", $(cur_td).data("name") + newid);
+                    c.appendTo($(td));
+                    td.appendTo($(tr));
+                } else {
+                    var td = $("<td></td>", {
+                        'text': $('#tab_logic tr').length
+                    }).appendTo($(tr));
+                }
+            });
+
+            // add delete button and td
+            /*
+             $("<td></td>").append(
+             $("<button class='btn btn-danger glyphicon glyphicon-remove row-remove'></button>")
+             .click(function() {
+             $(this).closest("tr").remove();
+             })
+             ).appendTo($(tr));
+             */
+
+            // add the new row
+            $(tr).appendTo($('#tab_logic'));
+
+            $(tr).find("td button.row-remove").on("click", function () {
+                $(this).closest("tr").remove();
+            });
+        });
+
+
+        // Sortable Code
+        var fixHelperModified = function (e, tr) {
+            var $originals = tr.children();
+            var $helper = tr.clone();
+
+            $helper.children().each(function (index) {
+                $(this).width($originals.eq(index).width())
+            });
+
+            return $helper;
+        };
+
+        $(".table-sortable tbody").sortable({
+            helper: fixHelperModified
+        }).disableSelection();
+
+        $(".table-sortable thead").disableSelection();
+
+
+        $("#add_row").trigger("click");
+    });
+</script>
+
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 table-responsive">
+            <table class="table table-bordered table-hover table-sortable" id="tab_logic">
+                <thead>
+                <tr>
+                    <th class="text-center">
+                        ID
+                    </th>
+                    <th class="text-center">
+                        Name
+                    </th>
+                    <th class="text-center">
+                        Desc
+                    </th>
+                    <th class="text-center">
+                        Status
+                    </th>
+                    <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;">
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task : ${task}" id='addr0' data-id="0" class="hidden">
+                    <td data-name="ID">
+                        <input type="text" name='ID' th:value="*{uid}" placeholder='ID' class="form-control"/>
+                    </td>
+                    <td data-name="name">
+                        <input type="text" name='Name' th:value="*{name}" placeholder='Name' class="form-control"/>
+                    </td>
+
+                    <td data-name="sel">
+                        <select name="sel0">
+                            <option>Select Option</option>
+                            <option>In progress</option>
+                            <option>Unsolved</option>
+                            <option>Request backup</option>
+                        </select>
+                    </td>
+
+                    <td data-name="desc">
+                        <textarea name="desc0" th:field="*{description}" placeholder="Description"
+                                  class="form-control"></textarea>
+                    </td>
+
+
+                    <td data-name="del">
+                        <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a id="add_row" class="btn btn-default pull-right">Add Row</a>
+</div>
+
+
+</body>
+</html>

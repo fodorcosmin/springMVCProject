@@ -31,7 +31,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         List<String> authPages = Arrays.asList("/addmenuitem","/additem", "/removeitem", "/getallitems", "/addEmployee", "/removeEmployee", "/getAllEmployees",
                 "/adminhome","/waiterhome","/stockhome","/getallcredentials","/addEmployeeCredentials");
         List<String> stockPages = Arrays.asList("/additem", "/removeitem", "/getallitems","/stockhome", "/logout");
-        List<String> adminPages = Arrays.asList("/adminhome", "/addEmployee", "/removeEmployee", "/getAllEmployees","/getallcredentials", "/logout","/addEmployeeCredentials");
+        List<String> adminPages = Arrays.asList("/adminhome", "/addEmployee", "/removeEmployee", "/getAllEmployees", "/getallcredentials", "/logout", "/addEmployeeCredentials", "/getAllTasks");
         List<String> waiterPages = Arrays.asList("/waiterhome", "/addmenuitem", "/removemenuitem", "/getallmenus", "/logout");
 
 

@@ -2,7 +2,7 @@ package ro.sci.restaurant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ro.sci.restaurant.model.Ingredients;
+import ro.sci.restaurant.model.Stock;
 import ro.sci.restaurant.repository.StockRepository;
 
 import java.util.ArrayList;
@@ -19,44 +19,44 @@ public class StockService {
     @Autowired
     private StockRepository stockRepository;
 
-    public Ingredients findByUid(int id) {
+    public Stock findByUid(int id) {
         return stockRepository.findByUid(id);
     }
 
-    public List<Ingredients> getAll() {
-        List<Ingredients> ingredient = new ArrayList<>();
+    public List<Stock> getAll() {
+        List<Stock> stocksList = new ArrayList<>();
         stockRepository.findAll()
-                .forEach(ingredient::add);
-        return ingredient;
+                .forEach(stocksList::add);
+        return stocksList;
     }
 
-    public void update(Ingredients ingredient) {
+    public void update(Stock stock) {
 
-        stockRepository.save(ingredient);
+        stockRepository.save(stock);
     }
 
-    public void add(Ingredients ingredient) {
-        if (stockRepository.findAllByItem(ingredient.getItem()).isEmpty()) {
-            stockRepository.save(ingredient);
+    public void add(Stock stock) {
+        if (stockRepository.findAllByItem(stock.getItem()).isEmpty()) {
+            stockRepository.save(stock);
         } else {
-            for (Ingredients ingr : stockRepository.findAll()) {
-                if (ingr.getItem().equals(ingredient.getItem())) {
-                    ingr.setQuantity(ingr.getQuantity() + ingredient.getQuantity());
-                    stockRepository.findByUid(ingr.getUid()).setQuantity(ingr.getQuantity() - ingredient.getQuantity());
+            for (Stock stockFound : stockRepository.findAll()) {
+                if (stockFound.getItem().equals(stock.getItem())) {
+                    stockFound.setQuantity(stockFound.getQuantity() + stock.getQuantity());
+                    stockRepository.findByUid(stockFound.getUid()).setQuantity(stockFound.getQuantity() - stock.getQuantity());
                     break;
                 }
             }
         }
     }
 
-    public void remove(Ingredients ingredient) {
-        for (Ingredients ingr : stockRepository.findAll()) //TODO
+    public void remove(Stock stock) {
+        for (Stock stockFound : stockRepository.findAll()) //TODO
         {
-            if (ingr.getItem().equals(ingredient.getItem())) {
-                ingr.setQuantity(ingr.getQuantity() - ingredient.getQuantity());
-                stockRepository.findByUid(ingr.getUid()).setQuantity(ingr.getQuantity() - ingredient.getQuantity());
-                if (ingr.getQuantity() <= 0) {
-                    stockRepository.delete(ingr.getUid()); //todo
+            if (stockFound.getItem().equals(stock.getItem())) {
+                stockFound.setQuantity(stockFound.getQuantity() - stock.getQuantity());
+                stockRepository.findByUid(stockFound.getUid()).setQuantity(stockFound.getQuantity() - stock.getQuantity());
+                if (stockFound.getQuantity() <= 0) {
+                    stockRepository.delete(stockFound.getUid()); //todo
                 }
                 break;
             }

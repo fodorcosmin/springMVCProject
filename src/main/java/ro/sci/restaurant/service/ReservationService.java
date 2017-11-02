@@ -3,7 +3,7 @@ package ro.sci.restaurant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ro.sci.restaurant.model.Customer;
+import ro.sci.restaurant.model.Reservation;
 import ro.sci.restaurant.repository.ReservationRepository;
 
 import java.util.ArrayList;
@@ -20,34 +20,37 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    public List<Customer> getAll() {
-        List<Customer> customer = new ArrayList<>();
+    public List<Reservation> getAll() {
+        List<Reservation> reservations = new ArrayList<>();
         reservationRepository.findAll()
-                .forEach(customer::add);
-        return customer;
+                .forEach(reservations::add);
+        return reservations;
     }
 
-    public void update(Customer employee) {
-        reservationRepository.save(employee);
-    }
-
-    public void add(Customer customer) {
-        boolean customerExists = false;
-        for (Customer cust : reservationRepository.findAll()) {
-            if (cust.getPhoneNumber().equals(customer.getPhoneNumber())) {
-                customerExists = true;
+    public void add(Reservation reservation) {
+        boolean resExists = false;
+        // added verification for date also //
+        for (Reservation res : reservationRepository.findAll()) {
+            if (res.getPhoneNumber().equals(reservation.getPhoneNumber())
+                    && (res.getReservationDate()).equals(reservation.getReservationDate())) {
+                //TODO Date not persisted in DB //
+                resExists = true;
+                System.out.println("You are already booked a reservation");
                 break;
             }
+            if (res.getSeats() < reservation.getAvailableSeats()) {
+                System.out.println("We have only" + res.getSeats() + "available");
+            }
         }
-        if (customerExists == false) {
-            reservationRepository.save(customer);
+        if (!resExists) {
+            reservationRepository.save(reservation);
         }
     }
 
-    public void remove(Customer customer) {
-        for (Customer cust : reservationRepository.findAll()) {
-            if (cust.getPhoneNumber().equals(customer.getPhoneNumber())) {
-                reservationRepository.delete(cust.getUid());
+    public void remove(Reservation reservation) {
+        for (Reservation res : reservationRepository.findAll()) {
+            if (res.getPhoneNumber().equals(reservation.getPhoneNumber())) {
+                reservationRepository.delete(res.getUid());
                 break;
             }
         }
@@ -55,6 +58,7 @@ public class ReservationService {
     public void delete(int id) {
         reservationRepository.delete(id);
     }
+
 }
 
 

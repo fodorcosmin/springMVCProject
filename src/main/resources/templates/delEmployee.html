@@ -1,21 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <title>Add a Employee</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"
-          rel="stylesheet" media="all"
-          th:href="@{webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+
 
 </head>
 <body>
-<form method="post" th:object="${employee}">
-    <div class="form-group">
-        <label class="control-label col-sm-2" th:for="email">item</label>
-        <input class="form-control" th:field="*{email}"/>
-    </div>
-    <button type="submit" class="btn btn-success">Submit</button>
-</form>
 
 
 </body>
