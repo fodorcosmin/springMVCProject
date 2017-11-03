@@ -20,7 +20,7 @@ public interface StockRepository extends CrudRepository<Stock, Integer> {
     Stock findByUid(int id);
 
     List<Stock> findAllByItem(String item);
-    //List <Ingredients> findAllByItem(Item item);
-    //TODO
 
+
+    List<Stock> findAll();
 }

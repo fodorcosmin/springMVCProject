@@ -2,13 +2,13 @@ package ro.sci.restaurant.model;
 
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "employees")
-public class Employee extends AbstractEntity{
+public class Employee extends AbstractEntity {
     //private Integer uid;
     private String firstName;
     private String lastName;
@@ -32,8 +32,7 @@ public class Employee extends AbstractEntity{
 //    public void setId(Integer id) {
 //        this.id = id;
 //    }
-    
-    @NotNull
+
     @Column(name = "first_name")
     public String getFirstName() {
         return firstName;
@@ -44,7 +43,7 @@ public class Employee extends AbstractEntity{
         this.firstName = firstName;
     }
 
-    @NotNull
+
     @Column(name = "last_name")
     public String getLastName() {
         return lastName;
@@ -55,8 +54,6 @@ public class Employee extends AbstractEntity{
     }
 
     //
-    @NotNull
-    @Min(18)
     @Column(name = "age")
     public Integer getAge() {
         return age;
@@ -66,7 +63,7 @@ public class Employee extends AbstractEntity{
         this.age = age;
     }
 
-    @NotNull
+
     @Column(name = "gender")
     public Character getGender() {
         return gender;
@@ -76,7 +73,6 @@ public class Employee extends AbstractEntity{
         this.gender = gender;
     }
 
-    @NotNull
     @Column(name = "phone_number", unique = true)
     public String getPhoneNumber() {
         return phoneNumber;

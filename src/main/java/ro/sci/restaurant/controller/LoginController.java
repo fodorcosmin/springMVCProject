@@ -19,16 +19,19 @@ public class LoginController extends AbstractController {
 
     /**
      * Retrieves the login page
+     *
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginForm() {
-        return "loginTest";
+    public String loginForm(Model model) {
+        model.addAttribute("credentials", new Credentials());
+        return "login";
     }
 
     /**
      * Used to retrieve the username and password inserted in the form and search the repository for a user with the
      * matching username and password.
+     *
      * @param request - the request servlet is used to retrieve the username and password from the form.
      *                - retrieve current session and set the user ID as an attribute to be later used
      * @return
@@ -41,24 +44,25 @@ public class LoginController extends AbstractController {
 
         Credentials u = credentialService.getByUsername(username);
         if (u == null) {
-            return "loginTest";
+            return "404";
         }
         if (u.getPassword().equals(password) && u.getUsername().equals(username)) {
             HttpSession thisSession = request.getSession(true);
             this.setUserInSession(thisSession, u);
         }
-        return "redirect:/";
+        return "/";
     }
 
     /**
      * Used to logout from the current user
+     *
      * @param request - retrieve the current session and invalidate it
      * @return
      */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "home";
+        return "index";
     }
 }
 

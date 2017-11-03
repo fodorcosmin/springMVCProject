@@ -14,5 +14,4 @@ import ro.sci.restaurant.model.Reservation;
 public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
 
 
-
 }

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ro.sci.restaurant.model.Stock;
 import ro.sci.restaurant.repository.StockRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //import ro.sci.restaurant.domain.Stock;
@@ -23,11 +22,8 @@ public class StockService {
         return stockRepository.findByUid(id);
     }
 
-    public List<Stock> getAll() {
-        List<Stock> stocksList = new ArrayList<>();
-        stockRepository.findAll()
-                .forEach(stocksList::add);
-        return stocksList;
+    public List getAll() {
+        return stockRepository.findAll();
     }
 
     public void update(Stock stock) {
@@ -62,6 +58,7 @@ public class StockService {
             }
         }
     }
+
     public void delete(int id) {
         stockRepository.delete(id);
     }

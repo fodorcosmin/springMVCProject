@@ -19,7 +19,6 @@ public class Customer extends AbstractEntity {
     private String phoneNumber;
 
 
-
     public Customer() {
     }
 

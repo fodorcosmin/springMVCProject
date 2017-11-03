@@ -22,25 +22,25 @@ public class ReservationController extends AbstractController {
     @RequestMapping(value = "/addreservation", method = RequestMethod.POST)
     public String makeReservation(Reservation reservation) {
         reservationService.add(reservation);
-        return "addreservation";
+        return "redirect:/home";
     }
 
     @RequestMapping(value = "/removereservation", method = RequestMethod.GET)
     public String removeReservationForm(Model model) {
         model.addAttribute("reservation", new Reservation());
-        return "removereservation";
+        return "reservations";
     }
 
     @RequestMapping(value = "/removereservation", method = RequestMethod.POST)
     public String removeReservation(Reservation reservation) {
         reservationService.remove(reservation);
-        return "removereservation";
+        return "reservations";
     }
 
-    @RequestMapping(value = "/getAllReservations", method = RequestMethod.GET)
-    public String getAllReservations() {
-        reservationService.getAll();
-        return "allReservations";
+    @RequestMapping(value = "/getReservations", method = RequestMethod.GET)
+    public String getAllReservations(Model model) {
+        model.addAttribute("reservation", reservationService.getAll());
+        return "reservations";
     }
 
 }

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Inventory</title>
+</head>
+
+<style>
+
+    .container {
+
+        width: 100%;
+        height: 100%;
+        background-color: #d4d3d3;
+        padding: 20px;
+
+    }
+
+    .listWrap {
+
+        height: 800px;
+        width: 1000px;
+
+    }
+
+    .list {
+
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: table;
+        white-space: nowrap;
+        width: 100%;
+
+    }
+
+    .list li {
+
+        background-color: #f0f0f0;
+        display: table-row;
+        color: #5c5c5c;
+
+    }
+
+    .list li:nth-child(odd) {
+
+        background-color: #f2f2f2;
+        display: table-row;
+        font-size: 9pt;
+        color: #5c5c5c;
+
+    }
+
+    .list li:nth-child(odd):hover {
+
+        background-color: #dadada;
+
+    }
+
+    .list li:nth-child(even) {
+
+        background-color: #e8e8e8;
+        display: table-row;
+        font-size: 9pt;
+        color: #5c5c5c;
+
+    }
+
+    .list li:nth-child(even):hover {
+
+        background-color: #dadada;
+
+    }
+
+    .list li:nth-child(1) span:first-child {
+
+        border-top-left-radius: 6px;
+
+    }
+
+    .list li:nth-child(1) span:last-child {
+
+        border-top-right-radius: 6px;
+
+    }
+
+    .list li:nth-child(1) {
+
+        background-color: #201c2b;
+        text-transform: uppercase;
+        font-size: 8pt;
+        font-weight: bold;
+        color: #b8b5c0;
+
+    }
+
+    .list li:nth-child(1):hover {
+
+    }
+
+    .list li:nth-child(1) span {
+
+        border-bottom: 2px solid #7d5bbe;
+        padding: 14px;
+
+    }
+
+    .list span {
+
+        text-align: left;
+        display: table-cell;
+        padding: 6px;
+        vertical-align: middle;
+
+    }
+
+    .list span:nth-child(2) {
+
+    }
+
+
+</style>
+<body>
+
+<div class="fade modal" id="stock">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="modal-title" id="myModalLabel">New Item</h2>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" method="post" th:action="@{/additem}" th:object="${stock}">
+                    <fieldset>
+                        <!-- Form Name -->
+                        <!-- Prepended text-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="prependedtext">Item name</label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon"></span>
+                                    <input id="prependedtext" name="prependedtext" class="form-control"
+                                           placeholder="Item Name" type="text" required=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Prepended text-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="lastName">Quantity (kg)</label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                    <input id="lastName" name="quantiy" class="form-control" placeholder="Quantity"
+                                           type="text" required=""/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="price">Price</label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                    <input id="price" name="price" class="form-control" placeholder="Price per Unit(KG)"
+                                           type="number" required=""/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-fw fa-save"></i>Create
+                        </button>
+
+                    </fieldset>
+
+                    <div class="container">
+
+                        <div class="listWrap">
+
+                            <ul class="list">
+
+                                <li>
+                                    <span>UID</span>
+                                    <span>Item Name</span>
+                                    <span>Quantity in KG</span>
+                                    <span>Price per KG</span>
+                                    <span>Total Price</span>
+
+
+                                </li>
+                                <li th:each="stock : ${stock}">
+                                    <span th:text="${stock.uid}"></span>
+                                    <span th:text="${stock.item}"></span>
+                                    <span th:text="${stock.quantity}"></span>
+                                    <span th:text="${stock.pricePerUnit}"></span>
+                                    <span th:text="${stock.totalPrice}"></span>
+                                    <span>
+                    <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default">Edit</button>
+                        <button type="button" class="btn btn-default">Delete</button>
+                    </div>
+                </span>
+                                    <span></span>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

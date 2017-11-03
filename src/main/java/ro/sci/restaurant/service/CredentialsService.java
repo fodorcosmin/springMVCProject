@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ro.sci.restaurant.model.Credentials;
 import ro.sci.restaurant.repository.CredentialRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,21 +21,17 @@ public class CredentialsService {
 //    }
 
     public List<Credentials> getAll() {
-        List<Credentials> credentials = new ArrayList<>();
-        credentialRepository.findAll().forEach(credentials::add);
-        return credentials;
+        return credentialRepository.findAll();
     }
 
     public boolean add(Credentials credential) {
-            for(Credentials cre : credentialRepository.findAll())
-            {
-                if(cre.getUsername().equals(credential.getPassword()) || cre.getUsername().equals(credential.getUsername()))
-                {
-                    return false;
-                }
+        for (Credentials cre : credentialRepository.findAll()) {
+            if (cre.getPassword().equals(credential.getPassword()) || cre.getUsername().equals(credential.getUsername())) {
+                return false;
             }
-            credentialRepository.save(credential);
-            return true;
+        }
+        credentialRepository.save(credential);
+        return true;
     }
 
     public Credentials getByUid(int uid) {

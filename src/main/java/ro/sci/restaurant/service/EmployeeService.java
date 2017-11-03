@@ -1,4 +1,3 @@
-
 package ro.sci.restaurant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +26,11 @@ public class EmployeeService {
     }
 
     public boolean add(Employee employee) {
-        for(Employee emp : employeeRepository.findAll())
-        {
-            if(emp.getEmail().equals(employee.getEmail()) || emp.getPhoneNumber().equals(employee.getPhoneNumber()))
-            {
-                return false;
-            }
-        }
+//        for (Employee emp : employeeRepository.findAll()) {
+//            if (emp.getEmail().equals(employee.getEmail()) || emp.getPhoneNumber().equals(employee.getPhoneNumber())) {
+//                return false;
+//            }
+//        }
         employeeRepository.save(employee);
         return true;
     }

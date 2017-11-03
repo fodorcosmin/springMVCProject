@@ -13,10 +13,12 @@ import javax.persistence.Table;
 @SecondaryTable(name = "ingredients")
 public class Stock extends AbstractEntity {
 
+
     private String item;
     private Integer quantity;
     private Double pricePerUnit;
     private Double totalPrice;
+
 
     @Column(table = "ingredients")
     public String getItem() {

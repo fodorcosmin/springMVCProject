@@ -20,7 +20,7 @@ public class Reservation extends AbstractEntity {
     private String phoneNumber;
     private Integer seats;
     private Date reservationDate;
-//    private List<Table> tables;
+    private String comments;
 
 
     public Reservation() {
@@ -84,4 +84,12 @@ public class Reservation extends AbstractEntity {
     }
 
 
+    @Column(name = "comments")
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 }

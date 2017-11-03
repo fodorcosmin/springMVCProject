@@ -35,7 +35,6 @@ public class ReservationService {
                     && (res.getReservationDate()).equals(reservation.getReservationDate())) {
                 //TODO Date not persisted in DB //
                 resExists = true;
-                System.out.println("You are already booked a reservation");
                 break;
             }
             if (res.getSeats() < reservation.getAvailableSeats()) {
@@ -55,6 +54,7 @@ public class ReservationService {
             }
         }
     }
+
     public void delete(int id) {
         reservationRepository.delete(id);
     }

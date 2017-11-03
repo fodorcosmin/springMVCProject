@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 ///**
 // * Created by Andrei on 10/16/17.
 // */
@@ -28,11 +27,11 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
         boolean isLoggedIn = false;
         //restricted URLs
-        List<String> authPages = Arrays.asList("/addmenuitem","/additem", "/removeitem", "/getallitems", "/addEmployee", "/removeEmployee", "/getAllEmployees",
-                "/adminhome","/waiterhome","/stockhome","/getallcredentials","/addEmployeeCredentials");
-        List<String> stockPages = Arrays.asList("/additem", "/removeitem", "/getallitems","/stockhome", "/logout");
-        List<String> adminPages = Arrays.asList("/adminhome", "/addEmployee", "/removeEmployee", "/getAllEmployees", "/getallcredentials", "/logout", "/addEmployeeCredentials", "/getAllTasks");
-        List<String> waiterPages = Arrays.asList("/waiterhome", "/addmenuitem", "/removemenuitem", "/getallmenus", "/logout");
+        List<String> authPages = Arrays.asList("/addmenuitem", "/additem", "/removeitem", "/getallitems", "/addEmployee", "/removeEmployee", "/getAllEmployees",
+                "/admin", "/waiter", "/stock", "/getallcredentials", "/addEmployeeCredentials");
+        List<String> stockPages = Arrays.asList("/additem", "/removeitem", "/getStock", "/manager", "/logout");
+        List<String> adminPages = Arrays.asList("/admin", "/addEmployee", "/removeEmployee", "/getEmployees", "/getCredentials", "/logout", "/addEmployeeCredentials", "/tasks");
+        List<String> waiterPages = Arrays.asList("/waiter", "/addmenuitem", "/removemenuitem", "/menu", "/getMenus", "/logout", "/reservations");
 
 
         Credentials user;
@@ -44,17 +43,17 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             if (user != null) {
                 isLoggedIn = true;
 
-                if (user.getRole().equalsIgnoreCase("stockmanager") && !stockPages.contains(request.getRequestURI())) {
-                    response.sendRedirect("/stockhome");
+                if (user.getRole().equalsIgnoreCase("manager") && !stockPages.contains(request.getRequestURI())) {
+                    response.sendRedirect("/manager");
                 }
                 if (user.getRole().equalsIgnoreCase("admin") && !adminPages.contains(request.getRequestURI())) {
-                    response.sendRedirect("/adminhome");
+                    response.sendRedirect("/admin");
                 }
                 if (user.getRole().equalsIgnoreCase("waiter") && !waiterPages.contains(request.getRequestURI())) {
-                    response.sendRedirect("/waiterhome");
+                    response.sendRedirect("/waiter");
                 }
             }
-            if (authPages.contains(request.getRequestURI()) && isLoggedIn == false) {
+            if (authPages.contains(request.getRequestURI()) && !isLoggedIn) {
                 response.sendRedirect("/login");
                 return false;
             }
@@ -68,7 +67,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mav) throws IOException {
 
-        if (mav.getViewName().equals("stockhome") || mav.getViewName().equals("adminhome") || mav.getViewName().equals("waiterhome")) {
+        if (mav.getViewName().equals("manager") || mav.getViewName().equals("admin") || mav.getViewName().equals("waiter")) {
             mav.addObject("user", this.credentialsService.getByUid((Integer) request.getSession().getAttribute(AbstractController.userSessionKey)));
         }
     }

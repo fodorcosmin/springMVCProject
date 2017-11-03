@@ -20,7 +20,6 @@ public class Ingredients extends AbstractEntity {                           //TO
     private Double totalPrice;
 
 
-
     public Ingredients() {
 
     }

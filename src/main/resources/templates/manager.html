@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">CORE</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Dashboard</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"><strong>Stock</strong> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/getStock}"><span class="glyphicon glyphicon-th-list"
+                                                            aria-hidden="true"></span> Overview</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Categories</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Service<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/getAllEmployees}">Overview</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Categories</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#">Accounts</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Learnings <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Overview</a></li>
+                        <li><a href="#">Add user</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Categories</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Sales <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Overview</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Topics</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"><span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                        Links<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://www.google.ch" target="_blank">My Webmail</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="http://www.google.ch" target="_blank">Timelogger</a></li>
+                        <li><a href="http://www.cubetech.ch" target="_blank">cubetech.ch</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://www.fgruber.ch/" target="_blank"><span class="glyphicon glyphicon-cog"
+                                                                                   aria-hidden="true"></span> User
+                            Settings</a></li>
+                        <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                            Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-12">Simple Bootstrap Navigation with responsive Style. Easy to customize.</div>
+    </div>
+</div>
+</body>
+</html>
