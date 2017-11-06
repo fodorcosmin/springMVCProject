@@ -2,20 +2,13 @@ package ro.sci.restaurant.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ro.sci.restaurant.model.Credentials;
 import ro.sci.restaurant.model.Employee;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
-
-
+// thymeleaf is a pain in the ass //
 /**
  * This controller is used to add, remove, and retrieve employee and credentials assigned to said employee
  * All said operations can only be carried out by an employee with administrator privileges
@@ -65,7 +58,7 @@ public class EmployeeController extends AbstractController {
     /**
      * Retrieves the thymeleaf page and assigns an employee object to be initialised in the page
      *
-     * @param model - adds the variable to the thymeleaf through addAttribute
+     * @param uid - adds the variable to the thymeleaf through addAttribute
      * @return
      */
     @RequestMapping(value = "/delEmp/{uid}", method = RequestMethod.GET)
@@ -106,7 +99,7 @@ public class EmployeeController extends AbstractController {
     @RequestMapping(value = "/updateEmp/{uid}", method = RequestMethod.POST)
     public String edit(@PathVariable int uid,Model model) {
         model.addAttribute("employee", employeeService.getByID(uid));
-        return "redirect:/addEmp";
+        return "employees";
     }
 
 
