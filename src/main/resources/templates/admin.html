@@ -43,7 +43,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Employees <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/getAllEmployees}">Overview</a></li>
+                        <li><a th:href="@{/getEmployees}">Overview</a></li>
+                        <li><a th:href="@{/addEmp}">Add a Employee</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Categories</a></li>
                     </ul>
@@ -55,7 +56,7 @@
                        aria-expanded="false">Users <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/getCredentials}">Overview</a></li>
-                        <li><a href="">Add user</a></li>
+                        <li><a href="">Add a user</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Categories</a></li>
                     </ul>

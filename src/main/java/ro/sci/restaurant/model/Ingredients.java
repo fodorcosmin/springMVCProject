@@ -10,15 +10,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ingredients")
-@SecondaryTable(name = "stock")
 public class Ingredients extends AbstractEntity {                           //TODO am adaugat abstract entity aici
 
 
     private String item;
     private Integer quantity;
-    private Double pricePerUnit;
-    private Double totalPrice;
-
 
     public Ingredients() {
 

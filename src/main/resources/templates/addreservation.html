@@ -4,141 +4,19 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!--BootStrap Date Picker-->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
     <meta charset="utf-8"/>
     <title>Bootstrap Form Style </title>
 </head>
-
-<style>
-    @keyframes slidy {
-        0% {
-            left: 0%;
-        }
-        20% {
-            left: 0%;
-        }
-        25% {
-            left: -100%;
-        }
-        45% {
-            left: -100%;
-        }
-        50% {
-            left: -200%;
-        }
-        70% {
-            left: -200%;
-        }
-        75% {
-            left: -300%;
-        }
-        95% {
-            left: -300%;
-        }
-        100% {
-            left: -400%;
-        }
-    }
-
-    .container {
-        position: absolute;
-        width: 50%;
-        z-index: 1;
-        text-align: center;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-    }
-
-    div#slider {
-        overflow: hidden;
-        height: 670px;
-    }
-
-    div#slider figure img {
-        width: 20%;
-        float: left;
-    }
-
-    #slider figure {
-        position: relative;
-        width: 500%;
-        margin: 0 auto;
-        left: 0;
-        text-align: left;
-        font-size: 0;
-        animation: 15s slidy infinite;
-    }
-
-    .search-box {
-        text-align: center;
-    }
-
-    .search-destiny {
-        width: 100%;
-    }
-
-    .button-search {
-        margin-top: 20px;
-        margin-bottom: 10px;
-    }
-
-    .margin_row {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-
-    .btn_search {
-        width: 200px;
-        margin-bottom: 10px;
-        border-radius: 0;
-    }
-
-    .content {
-        border-radius: 5px;
-        background-color: rgba(200, 200, 200, 0.8)
-
-    }
-
-    @media (max-width: 600px) {
-        .btn_search {
-            width: 90%;
-            margin-bottom: 0px;
-            border-bottom-left-radius: 5px !important;
-            border-bottom-right-radius: 5px !important;
-        }
-    }
-
-    @media (max-width: 414px) {
-        .btn_search {
-
-            margin-bottom: 0px;
-            border-bottom-left-radius: 5px !important;
-            border-bottom-right-radius: 5px !important;
-        }
-
-        figure {
-            display: none;
-        }
-
-        .container, .slider, content {
-            width: 100%;
-        }
-    }
-
-</style>
-
 <body>
 
 <script>
@@ -153,83 +31,103 @@
         })
     })
 </script>
+<div class="row">
+    <div class="col-md-12 well">
+        <a class="btn btn-primary" data-toggle="modal" data-target="#customer"><i
+                class="fa fa-fw -square -circle fa-plus-square"></i>New Reservation</a>
+    </div>
 
-
-<div class="demo">
-    <div class="demo form-bg">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-lg-12">
-                    <h1 class="heading-title"> Reservation Form Style </h1>
-                </div>
+<div class="fade modal" id="customer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="modal-title" id="myModalLabel">Reservation Form</h2>
             </div>
-
-            <div class="row">
-                <div class="col-md-offset-3 col-md-6">
-                    <form class="form-horizontal" method="post" th:object="${reservation}">
-                        <div class="header">Reservation</div>
-                        <div class="form-content">
-                            <h4 class="heading">Your Details</h4>
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    <label class="control-label" th:for="firstName"><i class="fa fa-user"></i></label>
-                                    <input class="form-control" th:field="*{firstName}" placeholder="First Name"
-                                           type="text"/>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="control-label" th:for="lastName"><i
-                                            class="fa fa-envelope-o"></i></label>
-                                    <input class="form-control" th:field="*{lastName}" placeholder="Last Name"
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <label class="control-label" th:for="phoneNumber"><i class="fa fa-lock"></i></label>
-                                    <input class="form-control" th:field="*{phoneNumber}" placeholder="Phone"
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <h4 class="heading">Registration Details</h4>
-                            <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <label class="control-label" th:for="seats"><i class="fa fa-user"></i></label>
-                                    <input class="form-control" th:field="*{seats}" placeholder="Persons"
-                                           type="number"/>
-                                </div>
-
-                                <div class="datepicker-iso">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <div class="form-group" th:field="*{reservationDate}">
-                                                    <label class="control-label" for="date">Date</label>
-                                                    <input class="form-control" id="date" name="date" type="date"/>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label class="control-label" th:for="comments"><i
-                                                        class="fa fa-calendar"></i></label>
-                                                <textarea class="form-control" th:field="*{comments}"
-                                                          placeholder="Additional comments"></textarea>
-                                            </div>
-                                        </div>
-
-                                    </div>
+            <div class="modal-body">
+                <form class="form-horizontal" method="post" th:object="${customer}">
+                        <!-- Form Name -->
+                        <!-- Prepended text-->
+                    <fieldset>
+                        <div class="form-group" th:classappend="${#fields.hasErrors('firstName')}">
+                            <label class="col-md-4 control-label" for="firstName">First Name</label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon"></span>
+                                    <input id="firstName"  class="form-control" placeholder="First Name" th:field="*{firstName}" type="text" required=""/>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                        <!-- Prepended text-->
+                        <div class="form-group" th:classappend="${#fields.hasErrors('lastName')}? 'has-error'">
+                            <label class="col-md-4 control-label" for="lastName">Last Name</label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                    <input id="lastName" class="form-control" placeholder="Last Name"  th:field="*{lastName}" type="text" required=""/>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('phoneNumber')}">
+                            <label class="col-md-4 control-label" for="phoneNumber">Phone Number</label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                    <input id="phoneNumber" th:field="*{phoneNumber}" class="form-control"
+                                           placeholder="Phone Number" type="text" required=""/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('seats')}">
+                            <label class="col-md-4 control-label" th:for="seats">seats</label>
+                            <div class="col-md-5">
+                                <td data-name="sel">
+                                    <select th:field="*{seats}">
+                                        <option selected="selected" value="">Select Persons</option>
+                                        <option th:value="1">1</option>
+                                        <option th:value="2">2</option>
+                                        <option th:value="3">3</option>
+                                        <option th:value="4">4</option>
+                                        <option value="More than 4">More than 4</option>
+
+                                    </select>
+                                </td>
+                            </div>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('comments')}">
+                        <td data-name="desc">
+                        <textarea th:field="*{comments}"  placeholder="If more than 4 person please give details about the current reservation"
+                                  class="form-control"></textarea>
+                        </td>
+                        </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group" th:classappend="${#fields.hasErrors('reservationDate')}">
+                                    <label class="control-label" th:for="reservationDate">Reservation Date</label>
+                                    <input class="form-control" id="date" name="date" type="date"/>
+                                    <button type="submit" class="btn btn-default btn-block btn-custom"><strong>Book this one!</strong></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </fieldset>
+                </form>
             </div>
         </div>
+
     </div>
 </div>
-
-
+</div>
 </body>
 
 </html>

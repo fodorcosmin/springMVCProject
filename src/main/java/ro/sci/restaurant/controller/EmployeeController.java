@@ -2,13 +2,18 @@ package ro.sci.restaurant.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import ro.sci.restaurant.model.Credentials;
 import ro.sci.restaurant.model.Employee;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
 
 /**
@@ -18,6 +23,13 @@ import ro.sci.restaurant.model.Employee;
 @Controller
 public class EmployeeController extends AbstractController {
 
+//
+//    @InitBinder("employee")
+//    public void bindingPreparation(WebDataBinder binder) {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+//        dateFormat.setLenient(false);
+//        binder.registerCustomEditor(Date.class,"hireDate",new CustomDateEditor(dateFormat,true));
+//    }
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -49,16 +61,29 @@ public class EmployeeController extends AbstractController {
     } //TODO TO BE REVIEWED
 
 
+
     /**
      * Retrieves the thymeleaf page and assigns an employee object to be initialised in the page
      *
      * @param model - adds the variable to the thymeleaf through addAttribute
      * @return
      */
-    @RequestMapping(value = "/addEmployee", method = RequestMethod.GET)
+    @RequestMapping(value = "/delEmp/{uid}", method = RequestMethod.GET)
+    public String removeEmployee(@RequestParam Integer uid) {
+        employeeService.removeByID(uid);
+        return "redirect:/getEmployees";
+    }
+
+    /**
+     * Retrieves the thymeleaf page and assigns an employee object to be initialised in the page
+     *
+     * @param model - adds the variable to the thymeleaf through addAttribute
+     * @return
+     */
+    @RequestMapping(value = "/addEmp", method = RequestMethod.GET)
     public String employeeForm(Model model) {
         model.addAttribute("employee", new Employee());
-        return "addEmployee";
+        return "addEmp";
     }
 
     /**
@@ -67,39 +92,21 @@ public class EmployeeController extends AbstractController {
      * @param employee - the object initialised from the page with the @ModelAttribute
      * @return
      */
-    @RequestMapping(value = "addEmp", method = RequestMethod.POST)
+    @RequestMapping(value = "/addEmp", method = RequestMethod.POST)
     public String addEmployee(@ModelAttribute Employee employee, Model model) {
         if (employeeService.add(employee)) {
             model.addAttribute("employee", employee);
-            return "redirect:/employees"; //TODO TO BE REVIEWED If binding result is necessary
+            return "employees"; //TODO TO BE REVIEWED If binding result is necessary
         }
         model.addAttribute("employee", "Employee " + employee.getFirstName() + employee.getEmail() + " already exists");
         return "Failed!";
     }
 
 
-    /**
-     * Retrieves the thymeleaf page and assigns an employee object to be initialised in the page
-     *
-     * @param model - adds the variable to the thymeleaf through addAttribute
-     * @return
-     */
-    @RequestMapping(value = "/removeEmployee", method = RequestMethod.GET)
-    public String removeEmployee(Model model) {
-        model.addAttribute("employee", new Employee());
-        return "delEmployee";
-    }
-
-    /**
-     * Use the newly created employee object to compare it to other objects in the employee repository to be removed
-     *
-     * @param employee - the object initialised from the page with the @ModelAttribute
-     * @return
-     */
-    @RequestMapping(value = "/removeEmployee", method = RequestMethod.POST)
-    public String remEmployee(@ModelAttribute Employee employee) {
-        employeeService.removeByEmail(employee.getEmail());
-        return "delEmployee";
+    @RequestMapping(value = "/updateEmp/{uid}", method = RequestMethod.POST)
+    public String edit(@PathVariable int uid,Model model) {
+        model.addAttribute("employee", employeeService.getByID(uid));
+        return "redirect:/addEmp";
     }
 
 

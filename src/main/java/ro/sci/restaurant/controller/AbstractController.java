@@ -19,7 +19,7 @@ public class AbstractController {
     protected EmployeeService employeeService;
 
     @Autowired
-    protected ReservationService reservationService;
+    protected CustomerService customerService;
 
     @Autowired
     protected StockService stockService;

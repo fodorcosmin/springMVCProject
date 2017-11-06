@@ -8,12 +8,10 @@ import ro.sci.restaurant.model.Employee;
 import java.util.List;
 
 @Repository
-@Transactional
 public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
-    Employee findEmployeeByUid(int uid);
-
     List<Employee> findAll();
 
-
+    Employee findByUid(int uid);
+    Employee deleteByUid(int uid);
     Employee deleteByEmail(String email);
 }

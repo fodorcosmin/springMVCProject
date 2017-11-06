@@ -78,4 +78,9 @@ public class MenuController extends AbstractController {
         model.addAttribute("menu", menuService.getAll());
         return "menu";
     }
+
+    @RequestMapping(value = "/offers", method = RequestMethod.GET)
+    public String offers() {
+        return "offers";
+    }
 }

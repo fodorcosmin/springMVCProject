@@ -6,80 +6,196 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="http://code.jquery.com/color/jquery.color-2.1.2.min.js" integrity="sha256-H28SdxWrZ387Ldn0qogCzFiUDDxfPiNIyJX7BECQkDE=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+
+<style>
+
+    .container {
+
+        width: 100%;
+        height: 100%;
+        background-color: #d4d3d3;
+        padding: 20px;
+
+    }
+
+    .listWrap {
+
+        height: 800px;
+        width: 1000px;
+
+    }
+
+    .list {
+
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: table;
+        white-space: nowrap;
+        width: 100%;
+
+    }
+
+    .list li {
+
+        background-color: #f0f0f0;
+        display: table-row;
+        color: #5c5c5c;
+
+    }
+
+    .list li:nth-child(odd) {
+
+        background-color: #f2f2f2;
+        display: table-row;
+        font-size: 9pt;
+        color: #5c5c5c;
+
+    }
+
+    .list li:nth-child(odd):hover {
+
+        background-color: #dadada;
+
+    }
+
+    .list li:nth-child(even) {
+
+        background-color: #e8e8e8;
+        display: table-row;
+        font-size: 9pt;
+        color: #5c5c5c;
+
+    }
+
+    .list li:nth-child(even):hover {
+
+        background-color: #dadada;
+
+    }
+
+    .list li:nth-child(1) span:first-child {
+
+        border-top-left-radius: 6px;
+
+    }
+
+    .list li:nth-child(1) span:last-child {
+
+        border-top-right-radius: 6px;
+
+    }
+
+
+    .list li:nth-child(1) {
+
+        background-color: #201c2b;
+        text-transform: uppercase;
+        font-size: 8pt;
+        font-weight: bold;
+        color: #b8b5c0;
+
+
+    }
+
+    .list li:nth-child(1):hover {
+
+
+
+    }
+
+
+
+    .list li:nth-child(1) span {
+
+        border-bottom: 2px solid #7d5bbe;
+        padding: 14px;
+
+    }
+
+    .list span {
+
+        text-align: left;
+        display: table-cell;
+        padding: 6px;
+        vertical-align: middle;
+
+    }
+
+
+    .list span:nth-child(2) {
+
+
+    }
+
+
+
+
+</style>
 <body>
 
+<script>
+    $( document ).ready(function() {
+
+        initEvents();
+
+    });
+
+    function initEvents() {
+
+        $(".list").hover(function(){
+
+            $(".list li:first span").stop().animate({borderWidth: "5", backgroundColor: "#3f3659", color: "#e5e3e8"},{duration: 170, complete: function() {}} );
+
+        }, function () {
+
+            $(".list li:first span").stop().animate({borderWidth: "2", backgroundColor: "#201c2b", color: "#b8b5c0"},{duration: 170, complete: function() {}} );
+
+        });
+
+    }
+
+    function animateTable(e) {
+
+
+
+
+    }
+</script>
 
 <div class="container">
-    <div class="row clearfix">
-        <div class="col-md-12 table-responsive">
-            <table class="table table-bordered table-hover table-sortable" id="tab_logic">
-                <thead>
-                <tr>
-                    <th class="text-center">
-                        ID
-                    </th>
+    <div class="listWrap">
+        <ul class="list">
+            <li>
+                <span>ID</span>
+                <span>First Name</span>
+                <span>Last Name</span>
+                <span>Phone Number</span>
+                <span>Date</span>
+                <span>Actions</span>
+                <span></span>
+            </li>
 
-                    <th class="text-center">
-                        First Name
-                    </th>
-                    <th class="text-center">
-                        Last Name
-                    </th>
-                    <th class="text-center">
-                        Phone Number
-                    </th>
-                    <th class="text-center">
-                        Seats Booked
-                    </th>
-                    <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;">
-                    </th>
-                </tr>
-                </thead>
-                <tbody th:each="reservation : ${reservation}">
-                <fieldset>
-                    <tr id='addr0' data-id="0" class="hidden">
-                        <td data-name="ID">
-                            <input type="text" th:field="*{uid}" placeholder='ID' class="form-control"/>
-                        </td>
-                        <td data-name="firstName">
-                            <input type="text" th:field="*{firstName}" placeholder='First Name' class="form-control"/>
-                        </td>
-
-                        <td data-name="lastName">
-                            <input type="text" th:field="*{lastName}" placeholder='Last Name' class="form-control"/>
-                        </td>
-
-                        <td data-name="phoneNumber">
-                            <input type="text" th:field="*{phoneNumber}" placeholder='Phone Number'
-                                   class="form-control"/>
-                        </td>
-
-                        <td data-name="phoneNumber">
-                            <input type="text" th:field="*{seats}" placeholder='Phone Number' class="form-control"/>
-                        </td>
-                        <td data-name="desc">
-                            <textarea name="desc0" placeholder="Description" class="form-control"></textarea>
-                        </td>
-                        <td data-name="del">
-                            <button name="del0" class='btn btn-danger glyphicon glyphicon-remove row-remove'></button>
-                        </td>
-                    </tr>
-                </fieldset>
-                </tbody>
-            </table>
-        </div>
+            <li th:each="customer : ${customer}">
+                <span th:text="${customer.uid}"></span>
+                <span th:text="${customer.firstName}"></span>
+                <span th:text="${customer.lastName}"></span>
+                <span th:text="${customer.phoneNumber}"></span>
+                <span th:text="${customer.email}"></span>
+                <span th:text="${customer.seats}"></span>
+                <span th:text="${customer.reservationDate}"></span>
+                <span><div class="btn-group btn-group-xs" role="group" aria-label="...">
+                <button type="button" class="btn btn-default">Edit</button>
+                <button type="button" class="btn btn-default">Delete</button>
+            </div>
+                </span>
+            </li>
+        </ul>
     </div>
-    <a id="add_row" class="btn btn-default pull-right">Add Row</a>
 </div>
 
-<form action="#" th:action="@{/removereservation}" th:object="${reservation}" method="post">
-    <p>Name: <input type="text" th:field="*{firstName}"/></p>
-    <p>Name: <input type="text" th:field="*{lastName}"/></p>
-    <p>Name: <input type="text" th:field="*{email}"/></p>
-    <p>Name: <input type="number" th:field="*{phoneNumber}"/></p>
-    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-</form>
 </body>
 </html>

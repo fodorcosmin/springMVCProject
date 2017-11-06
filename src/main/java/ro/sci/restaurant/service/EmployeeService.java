@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ro.sci.restaurant.model.Employee;
 import ro.sci.restaurant.repository.EmployeeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,8 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public Employee getByUid(int uid) {
-        return employeeRepository.findEmployeeByUid(uid);
-    }
-
     public List getAll() {
-        return employeeRepository.findAll();
+     return employeeRepository.findAll();
     }
 
     public boolean add(Employee employee) {
@@ -35,6 +32,13 @@ public class EmployeeService {
         return true;
     }
 
+    public Employee getByID(int uid) {
+        return employeeRepository.findByUid(uid);
+    }
+
+    public Employee removeByID(int uid) {
+        return employeeRepository.deleteByUid(uid);
+    }
     public void update(Employee employee) {
         employeeRepository.save(employee);
     }
